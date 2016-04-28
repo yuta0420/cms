@@ -1,0 +1,20 @@
+body {
+  margin-top: 20px;
+}
+
+.content-margin-top {
+  margin-top: 80px;
+}
+
+.strong-title {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+#icon a{
+	position: absolute;
+	right:10px;
+	bottom:10px;
+}
+
+
