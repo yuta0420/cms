@@ -5,7 +5,8 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 ?>
 
 	
-	
+	<?php echo $q["title_que"]; ?>
+	<?php echo $q["title_que_sub"]; ?>
 	
 	<form method="post">
 	<table>

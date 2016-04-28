@@ -204,10 +204,6 @@
 
                 <!-- 回答・答え合わせページの呼び出し -->
                 <?php
-
-                echo $q["title_que"]; 
-                echo $q["title_que_sub"];
-
                 	require("student_qa.php");
                 ?>
                 
