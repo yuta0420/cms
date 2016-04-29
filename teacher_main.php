@@ -14,6 +14,15 @@
   $dbh->query('SET NAMES utf8');
 
 
+  //公開フラグが押されたとき
+  // if (isset($_GET['open_flag'])&&($_GET['open_flag']=='open')){
+  //   $deletesql = sprintf('UPDATE `main` SET `open_flag` = 1 WHERE `id_que`=%d',$_GET['id_que']);
+
+    //SQL文の実行
+    // $stmt=$dbh->prepare($deletesql);
+    // $stmt->execute();
+  // }
+
   //新規追加の場合
   //MySQLの問題メインファイルの更新
   if((isset($_POST['question_title']) && !empty($_POST['question_title']))){
@@ -157,20 +166,21 @@
 
                         <div class="timeline-icon bg-success">
                             <i class="entypo-feather"></i>
-                            <i class="fa fa-cogs"></i>
+                            <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>"><i class="fa fa-cogs"></i></a>
                         </div>
 
                         <div class="timeline-label">
 
-                            
-                        	<?php
+                          <!-- 公開フラグ -->
+                           <!-- <form method="get">
+                            <p><input type="checkbox" name="open_flag" value="open">公開ボタン</p>
+                           <p><input type="submit" value="公開の更新" ></p> -->
+                          <?php //echo '<input name="number_que" type="hidden" value="'.$question_each['id_que'].'">'; ?>
+                           <!-- </form> -->
+                        	
 
-                        	echo '<h2><a href="#">'.$question_each['title_que'].'</a></h2>';
-                          echo '<h5><a href="#">'.$question_each['time_made'].'</a></h5>';
-
-                	
-        			           ?>
-        			
+                        	<a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>"><?php echo $question_each['title_que']; ?></a>
+                          <?php echo '<h5>'.$question_each['time_made'].'</h5>';  ?>   			
                 </div>
             </div>
 
@@ -224,6 +234,14 @@
                   if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
 
                     require('teacher_make_new.php');
+
+                  }
+                ?>
+
+                <?php
+                  if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
+
+                    require('teacher_make_edit.php');
 
                   }
                 ?>
