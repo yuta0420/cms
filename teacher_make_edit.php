@@ -66,7 +66,7 @@
                   小問題と答えを入力してください
                   <br />
 
-                <table>
+                  <table>
                       <?php
                       $i=0;
                       foreach($questions_edit as $question_each_edit)
@@ -83,28 +83,43 @@
                           echo '></td>' ;
 
 
-                        //問題と答えの間に空白を入れる
-                        echo '&emsp;';
-                        echo '&emsp;';
+                          //問題と答えの間に空白を入れる
+                          echo '&emsp;';
+                          echo '&emsp;';
 
-                        //答えの作成
-                        echo'<td>答え';
-                        echo'<input name="answer';
-                        echo $i;
-                        echo '" type="text" style="width:100px" value=';
-                        echo$question_each_edit['answer']; 
-                        echo '></td>';
-                        echo'</tr>';
+                          //答えの作成
+                          echo'<td>答え';
+                          echo'<input name="answer';
+                          echo $i;
+                          echo '" type="text" style="width:100px" value=';
+                          echo$question_each_edit['answer']; 
+                          echo '></td>';
+                          echo'</tr>';
 
-                        $i++;
+                          
+                          echo'<input name="id_sub_edit';
+                          echo $i;
+                          echo '" type="hidden" value=';
+                          echo$question_each_edit['id_sub']; 
+                          echo '>';
+
+                          $i++;
                       }
                       ?>
 
-                      </table>
+                  </table>
 
+                  <?php echo '<input name="id_que_edit" type="hidden" value="'.$main['id_que'].'">'; ?>
+                  <?php echo '<input name="num_que_edit" type="hidden" value="'.$main['num_que'].'">'; ?>
+                  
+                  <!-- 公開フラグの設定 -->
+                  <?php if($main['open_flag']==1){?>
+                    <input type="checkbox" name="open_flag" value="1" checked="checked">公開承認チェック
+                  <?php }else{ ?>
+                    <input type="checkbox" name="open_flag" value="1" >公開承認チェック
+                  <?php } ?>
 
-                      <input type="checkbox" name="open_flag">公開承認ボタン
-                      <br />
-                      <input type="submit" value="問題を更新する">
-                      </form>
+                  <br />
+                  <input type="submit" value="問題を更新する">
+                </form>
                 

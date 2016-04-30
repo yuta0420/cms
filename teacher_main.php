@@ -1,84 +1,21 @@
 <?php
 
-  //ステップ1.db接続
-  $dsn='mysql:dbname=cms;host=localhost:8080';/*本来はIPアドレスを指定*/
+  //DB呼び出し
+  require('dbconnect.php');
 
-  //接続するためのユーザー情報
-  $user='root';
-  $password='sp4p09y6';
+  //公開フラグ更新の場合
+  require('dbconnect_open_flag.php');  
 
-  //DB接続オブジェクトを作成
-  $dbh=new PDO($dsn,$user,$password);
-
-  //接続したDBオブジェクトで文字コードutf8を使うように指定
-  $dbh->query('SET NAMES utf8');
-
-
-  //公開フラグが押されたとき
-  // if (isset($_GET['open_flag'])&&($_GET['open_flag']=='open')){
-  //   $deletesql = sprintf('UPDATE `main` SET `open_flag` = 1 WHERE `id_que`=%d',$_GET['id_que']);
-
-    //SQL文の実行
-    // $stmt=$dbh->prepare($deletesql);
-    // $stmt->execute();
-  // }
+  //更新の場合
+  require('dbconnect_make_edit.php');
 
   //新規追加の場合
-  //MySQLの問題メインファイルの更新
-  if((isset($_POST['question_title']) && !empty($_POST['question_title']))){
+  require('dbconnect_make_new.php');
 
-    $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `time_made`) VALUES ('".$_POST['question_title']."','".$_POST['question_title_sub']."','".$_POST['number_que']."',now())";
+  //問題リスト用に呼び出し
+  require('dbconnect_make_list.php');
 
-    //SQL文の実行
-    $stmt=$dbh->prepare($sql_sav_main);
-    $stmt->execute();
-
-    //MySQL問題メインのID取得（問題内容questionのDBのサブID用）
-    $sql_id = 'SELECT MAX(`id_que`) AS MAXID FROM `main`';
-
-    //SQL文の実行
-    $stmt=$dbh->prepare($sql_id);
-    $stmt->execute();
-
-    $id_que = $rec=$stmt->fetch(PDO::FETCH_ASSOC);
-
-    if(isset($_POST['question1']) && !empty($_POST['question1'])){
-    for ($i=0; $i < $_POST['number_que']; $i++)
-     {
-       $sql = sprintf('INSERT INTO `question`(`id_que`, `question`, `answer`,`time_made`) VALUES (\'%d\', \'%s\',\'%s\',now())',$id_que['MAXID'],$_POST['question'.$i],$_POST['answer'.$i]);
-
-     //SQL文の実行
-       $stmt=$dbh->prepare($sql);
-       $stmt->execute();
-     }
-
-   }
-
-  }
-
-
-  //問題のリスト化用に呼び出し
-	$sql_list = 'SELECT*FROM `main`';
-
-
-    //SQL文の実行
-    $stmt=$dbh->prepare($sql_list);
-    $stmt->execute();
-
-    //格納する変数の初期化
-  $questions = array();
-
-  while(1){
-    //実行結果として得られたデータを取得
-    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($rec==false){
-      break;
-    }
-    // 取得したデータを配列に格納しておく
-    $questions[] = $rec;
-  }
-
-  	//データベースから切断
+  //データベースから切断
 	$dbh = null;
 ?>
 
@@ -146,6 +83,10 @@
       <div class="col-md-4 content-margin-top">
 
               <!-- ここに4列分のコンテナの記述が可能 -->
+
+              <!-- 生徒用デモ画面呼び出し -->
+
+              <a href="teacher_demo.php">生徒用画面デモはこちら</a>
                   
               <!-- 問題数選択フォーム呼び出し -->
               <?php
@@ -169,23 +110,18 @@
                             <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>"><i class="fa fa-cogs"></i></a>
                         </div>
 
-                        <div class="timeline-label">
-
-                          <!-- 公開フラグ -->
-                           <!-- <form method="get">
-                            <p><input type="checkbox" name="open_flag" value="open">公開ボタン</p>
-                           <p><input type="submit" value="公開の更新" ></p> -->
-                          <?php //echo '<input name="number_que" type="hidden" value="'.$question_each['id_que'].'">'; ?>
-                           <!-- </form> -->
-                        	
-
+                        <div class="timeline-label">                                            	
+                        <!-- リストに問題タイトルを出力 -->
                         	<a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>"><?php echo $question_each['title_que']; ?></a>
-                          <?php echo '<h5>'.$question_each['time_made'].'</h5>';  ?>   			
-                </div>
-            </div>
+                        <!-- リストに最終更新日時を出力 -->
+                          <?php 
+                          if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';
+                          else echo '<h5>'.$question_each['time_made'].'</h5>';  
+                          ?>   			
+                        </div>
+                    </div>
 
-        </article>
-
+                </article>
         <?php
         }
     	?>
@@ -203,12 +139,7 @@
         </article>
 
       </div> 
-
-
-
-       
-
-       
+      
       </div>
 
       <div class="col-md-8 content-margin-top">
@@ -244,25 +175,14 @@
                     require('teacher_make_edit.php');
 
                   }
-                ?>
-                    
+                ?>              
                 	
                 </div>
             </div>
-
         </article>
-
-
-
-
     </div>
   </div>
-
-
-
-
-
-  
+ 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->

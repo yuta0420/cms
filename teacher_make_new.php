@@ -4,7 +4,7 @@
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
-                  <input name="question_title" type="text" style="width:500px"><br />
+                  <input name="question_title_new" type="text" style="width:500px"><br />
                   問題文を入力してください。（例：つぎの計算をしなさい）
                   <br />
                   <input name="question_title_sub" type="text" style="width:500px"><br />
@@ -44,6 +44,8 @@
 
                       <br />
                       <?php echo '<input name="number_que" type="hidden" value="'.$_POST['number_que'].'">'; ?>
+                       <h2>※生徒に公開する場合は、右のリストから編集画面を開いて、「公開承認チェック」押して更新してください</h2>
+                      <br />
                       <input type="submit" value="問題を作成する">
                       </form>
                 
