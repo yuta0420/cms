@@ -1,9 +1,9 @@
  <?php
   //MySQLの問題メインファイルの更新
   if(isset($_POST['question_title_new']) && !empty($_POST['question_title_new'])){
-    if($_POST['sel_type']=='sentence'){
+    if($_POST['sel_type']=='0'){
 
-        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$_POST['number_que_new']."',now())";
+        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$_POST['number_que_new']."',0 ,now())";
 
         //SQL文の実行
         $stmt=$dbh->prepare($sql_sav_main);

@@ -34,7 +34,7 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	?>
 	</table>
 	<br />
-	<?php echo '<input type="hidden" name="number" value="'.$i.'">'; ?>
+	<?php echo '<input type="hidden" name="number0" value="'.$i.'">'; ?>
 	<input type="submit" value="答えを確認する">
 	</form>
 
@@ -43,7 +43,7 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 
 <!-- 回答結果の出力 -->
 <?php
-if(isset($_POST['number']) && !empty($_POST['number'])){
+if(isset($_POST['number0']) && !empty($_POST['number0'])){
 ?>
 
 	<table>
@@ -52,7 +52,7 @@ if(isset($_POST['number']) && !empty($_POST['number'])){
 	// $number=($question_each['num_que']);
 
 	
-	for($i=0; $i<$_POST['number']; $i++)//編集必要（問題数の取得）
+	for($i=0; $i<$_POST['number0']; $i++)//編集必要（問題数の取得）
 	{
 		echo'<tr>';
 		echo'<td>問題';
@@ -63,8 +63,12 @@ if(isset($_POST['number']) && !empty($_POST['number'])){
 		echo $_POST['st_answer'.($i+1)];
 		echo '</th>';
 		echo '<th>';
+		echo '&nbsp';
 		if((strpos($_POST['answer'.$i],$_POST['st_answer'.($i+1)]) !== false)&&(strlen($_POST['answer'.$i])==strlen($_POST['st_answer'.($i+1)])))echo '正解';
 		else echo '不正解';
+		echo '&nbsp';
+		echo '答え；';
+		echo $_POST['answer'.$i];
 		echo '</th>';
 		echo'</tr>';
 	}

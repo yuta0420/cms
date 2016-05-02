@@ -84,7 +84,7 @@
 
                       
                       <?php echo '<input name="number_que_new" type="hidden" value="'.$_POST['number_que'].'">'; ?>
-                      <?php echo '<input name="sel_type" type="hidden" value="selection">'; ?>
+                      <?php echo '<input name="sel_type" type="hidden" value="1">'; ?>
                        <h3>※生徒に公開する場合は、右のリストから編集画面を開いて、「公開承認チェック」押して更新してください</h3>
                       <br />
                       <input type="submit" value="問題を作成する">

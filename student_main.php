@@ -36,13 +36,25 @@
         $rec=$stmt->fetch(PDO::FETCH_ASSOC);
         $q[] = $rec;
 
+        if($q[0]['sel_type']==0){
+          //対象IDの問題と答えの取得(問題タイプごと)
+  		    $sql = 'SELECT*FROM `question` WHERE `id_que`='.$_GET['id_que'];
 
-        //対象IDの問題と答えの取得
-		    $sql = 'SELECT*FROM `question` WHERE `id_que`='.$_GET['id_que'];
+  			   //SQL文の実行
+  		    $stmt=$dbh->prepare($sql);
+  		    $stmt->execute();
+      }
 
-			//SQL文の実行
-		    $stmt=$dbh->prepare($sql);
-		    $stmt->execute();
+      if($q[0]['sel_type']==1){
+          //対象IDの問題と答えの取得(問題タイプごと)
+          $sql = 'SELECT*FROM `selection` WHERE `id_que`='.$_GET['id_que'];
+
+           //SQL文の実行
+          $stmt=$dbh->prepare($sql);
+          $stmt->execute();
+      }
+
+
 
 		    //格納する変数の初期化
 			$qas = array();
@@ -209,7 +221,12 @@
 
                 <!-- 回答・答え合わせページの呼び出し -->
                 <?php
-                	require("student_qa.php");
+                  if(isset($_GET['id_que'])&&($q[0]['sel_type']=='0')){
+                	 require("student_qa.php");
+                  }
+                  if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
+                   require("student_sel_qa.php");
+                  }
                 ?>
                 
 
