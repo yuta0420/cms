@@ -12,7 +12,8 @@
   //文章問題の新規追加の場合
   require('dbconnect_make_new.php');
 
-  //選択問題の更新の場合
+  //選択問題の新規追加の場合
+  require('dbconnect_make_sel_new.php');
 
   //選択問題の更新の場合
 

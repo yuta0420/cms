@@ -67,7 +67,7 @@
 
                       // 答えの番号の選択 
                         echo '<h2>答えの番号を選択してください</h2>';
-                        echo '<select name="ans"'.$i.'>';
+                        echo '<select name="ans'.$i.'"">';
 
                         echo '<option value="1">1</option>';
                         echo '<option value="2">2</option>';
