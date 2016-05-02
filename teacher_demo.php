@@ -69,7 +69,7 @@
 <head>
   <meta charset="UTF-8">
   <?php
-		$string='生徒用ページ';
+		$string='先生用デモ画面';
 		echo'<title>';
 		echo$string;
 		echo'</title>';
@@ -94,7 +94,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
+              <a class="navbar-brand" href="teacher_main.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

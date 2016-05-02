@@ -1,6 +1,6 @@
 
 
-                <form method="post">
+                <form method="post" action="teacher_main.php">
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
@@ -43,7 +43,8 @@
                       </table>
 
                       <br />
-                      <?php echo '<input name="number_que" type="hidden" value="'.$_POST['number_que'].'">'; ?>
+                      <?php echo '<input name="number_que_new" type="hidden" value="'.$_POST['number_que'].'">'; ?>
+                      <?php echo '<input name="sel_type" type="hidden" value="sentence">'; ?>
                        <h2>※生徒に公開する場合は、右のリストから編集画面を開いて、「公開承認チェック」押して更新してください</h2>
                       <br />
                       <input type="submit" value="問題を作成する">

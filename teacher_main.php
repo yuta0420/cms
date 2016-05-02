@@ -6,11 +6,15 @@
   //公開フラグ更新の場合
   require('dbconnect_open_flag.php');  
 
-  //更新の場合
+  //文章問題の更新の場合
   require('dbconnect_make_edit.php');
 
-  //新規追加の場合
+  //文章問題の新規追加の場合
   require('dbconnect_make_new.php');
+
+  //選択問題の更新の場合
+
+  //選択問題の更新の場合
 
   //問題リスト用に呼び出し
   require('dbconnect_make_list.php');
@@ -162,12 +166,23 @@
                 <!-- 問題作成用フォーム呼び出し -->
 
                 <?php
-                  if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
-
-                    require('teacher_make_new.php');
-
+                                 
+                if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
+                  if($_POST["sel"]=="1"){ 
+                      require('teacher_make_new.php');
+                    }
                   }
                 ?>
+
+                <?php
+                                  
+                if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
+                  if($_POST["sel"]=="2"){
+                      require('teacher_make_sel_new.php');
+                    }
+                  }
+                ?>
+
 
                 <?php
                   if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
@@ -190,23 +205,4 @@
   <script src="assets/js/form.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
