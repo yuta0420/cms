@@ -16,6 +16,7 @@
   require('dbconnect_make_sel_new.php');
 
   //選択問題の更新の場合
+  require('dbconnect_make_sel_edit.php');
 
   //問題リスト用に呼び出し
   require('dbconnect_make_list.php');
@@ -112,12 +113,12 @@
 
                         <div class="timeline-icon bg-success">
                             <i class="entypo-feather"></i>
-                            <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>"><i class="fa fa-cogs"></i></a>
+                            <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><i class="fa fa-cogs"></i></a>
                         </div>
 
                         <div class="timeline-label">                                            	
                         <!-- リストに問題タイトルを出力 -->
-                        	<a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>"><?php echo $question_each['title_que']; ?></a>
+                        	<a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><?php echo $question_each['title_que']; ?></a>
                         <!-- リストに最終更新日時を出力 -->
                           <?php 
                           if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';
@@ -169,7 +170,7 @@
                 <?php
                                  
                 if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
-                  if($_POST["sel"]=="1"){ 
+                  if($_POST["sel"]=="0"){ 
                       require('teacher_make_new.php');
                     }
                   }
@@ -178,7 +179,7 @@
                 <?php
                                   
                 if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
-                  if($_POST["sel"]=="2"){
+                  if($_POST["sel"]=="1"){
                       require('teacher_make_sel_new.php');
                     }
                   }
@@ -187,11 +188,19 @@
 
                 <?php
                   if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
-
-                    require('teacher_make_edit.php');
-
+                    if($_GET["sel"]=="0"){
+                      require('teacher_make_edit.php');
+                    }
                   }
-                ?>              
+                ?>
+
+                <?php
+                  if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
+                       if($_GET["sel"]=="1"){
+                        require('teacher_make_sel_edit.php');
+                       }
+                  }
+                ?>               
                 	
                 </div>
             </div>

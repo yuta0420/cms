@@ -1,20 +1,7 @@
 <?php
 
-  //ステップ1.db接続
-  $dsn='mysql:dbname=cms;host=localhost:8080';/*本来はIPアドレスを指定*/
-
-  //接続するためのユーザー情報
-  $user='root';
-  $password='sp4p09y6';
-
-  //DB接続オブジェクトを作成
-  $dbh=new PDO($dsn,$user,$password);
-
-  //接続したDBオブジェクトで文字コードutf8を使うように指定
-  $dbh->query('SET NAMES utf8');
-
-
-
+    //DB接続
+    require('dbconnect.php');
 
     //MySQL問題メインのデータ取得
     $sql = 'SELECT*FROM `main` WHERE `id_que`='.$_GET['id_que'];
@@ -120,6 +107,7 @@
                   <?php } ?>
 
                   <br />
+                  <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
                   <input type="submit" value="問題を更新する">
                 </form>
                 

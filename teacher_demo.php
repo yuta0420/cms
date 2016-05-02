@@ -1,18 +1,18 @@
 <?php
 
-	require('dbconnect.php');
+  require('dbconnect.php');
 
-	//問題タイトルの取得
-	$sql = 'SELECT*FROM `main` WHERE`open_flag`=1';
+  //問題タイトルの取得
+  $sql = 'SELECT*FROM `main` WHERE`open_flag`=1';
 
-	//SQL文の実行
+  //SQL文の実行
     $stmt=$dbh->prepare($sql);
     $stmt->execute();
 
     //格納する変数の初期化
-	$questions = array();
+  $questions = array();
 
-	while(1){
+  while(1){
     //実行結果として得られたデータを取得
     $rec = $stmt->fetch(PDO::FETCH_ASSOC);
     if($rec==false){
@@ -25,7 +25,7 @@
 
     $q = array();
     if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
-		    //対象IDのデータ取得
+        //対象IDのデータ取得
         $sql = 'SELECT*FROM `main` WHERE `id_que`='.$_GET['id_que'];
 
         //SQL文の実行
@@ -36,31 +36,43 @@
         $rec=$stmt->fetch(PDO::FETCH_ASSOC);
         $q[] = $rec;
 
+        if($q[0]['sel_type']==0){
+          //対象IDの問題と答えの取得(問題タイプごと)
+          $sql = 'SELECT*FROM `question` WHERE `id_que`='.$_GET['id_que'];
 
-        //対象IDの問題と答えの取得
-		    $sql = 'SELECT*FROM `question` WHERE `id_que`='.$_GET['id_que'];
+           //SQL文の実行
+          $stmt=$dbh->prepare($sql);
+          $stmt->execute();
+      }
 
-			//SQL文の実行
-		    $stmt=$dbh->prepare($sql);
-		    $stmt->execute();
+      if($q[0]['sel_type']==1){
+          //対象IDの問題と答えの取得(問題タイプごと)
+          $sql = 'SELECT*FROM `selection` WHERE `id_que`='.$_GET['id_que'];
 
-		    //格納する変数の初期化
-			$qas = array();
+           //SQL文の実行
+          $stmt=$dbh->prepare($sql);
+          $stmt->execute();
+      }
 
-			while(1){
-		    //データを取得
-		    $rec=$stmt->fetch(PDO::FETCH_ASSOC);
-		    if($rec == false){
-		      break;
-		    }
-		    $qas[]=$rec;
-		  }
 
-	}
+
+        //格納する変数の初期化
+      $qas = array();
+
+      while(1){
+        //データを取得
+        $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+        if($rec == false){
+          break;
+        }
+        $qas[]=$rec;
+      }
+
+  }
    
 
-  	//データベースから切断
-	$dbh = null;
+    //データベースから切断
+  $dbh = null;
 ?>
 
 
@@ -69,11 +81,11 @@
 <head>
   <meta charset="UTF-8">
   <?php
-		$string='先生用デモ画面';
-		echo'<title>';
-		echo$string;
-		echo'</title>';
-	?>
+    $string='先生用デモ';
+    echo'<title>';
+    echo$string;
+    echo'</title>';
+  ?>
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -94,7 +106,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="teacher_main.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
+              <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -126,14 +138,14 @@
     <div class="row">
       <div class="col-md-4 content-margin-top">
 
-      		<!-- ここに4列分のコンテナの記述が可能 -->
+          <!-- ここに4列分のコンテナの記述が可能 -->
        
         <div class="timeline-centered">
 
        <?php
-              	//リストから取得した$questionから$question_eachに1列ずつデータを格納（全要素）
-              	foreach ($questions as $question_each) {
-              	?>
+                //リストから取得した$questionから$question_eachに1列ずつデータを格納（全要素）
+                foreach ($questions as $question_each) {
+                ?>
 
                 <article class="timeline-entry">
 
@@ -147,19 +159,19 @@
                         <div class="timeline-label">
 
                             
-                        	<?php
+                          <?php
 
                           //問題タイトルの出力
-                        	echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$question_each['title_que'].'</a></h2>';
+                          echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$question_each['title_que'].'</a></h2>';
                           
                           // リストに最終更新日時を出力
                           if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';
                           else echo '<h5>'.$question_each['time_made'].'</h5>';  
                          
 
-                	
-        			           ?>
-        			
+                  
+                         ?>
+              
                 </div>
             </div>
 
@@ -167,7 +179,7 @@
 
         <?php
         }
-    	?>
+      ?>
 
         <article class="timeline-entry begin">
 
@@ -192,7 +204,7 @@
 
       <div class="col-md-8 content-margin-top">
 
-      	<div class="timeline-centered">
+        <div class="timeline-centered">
 
         <article class="timeline-entry">
 
@@ -209,11 +221,16 @@
 
                 <!-- 回答・答え合わせページの呼び出し -->
                 <?php
-                	require("student_qa.php");
+                  if(isset($_GET['id_que'])&&($q[0]['sel_type']=='0')){
+                   require("student_qa.php");
+                  }
+                  if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
+                   require("student_sel_qa.php");
+                  }
                 ?>
                 
 
-                	
+                  
                 </div>
             </div>
 
