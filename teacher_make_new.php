@@ -47,6 +47,6 @@
                       <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
                        <h2>※生徒に公開する場合は、右のリストから編集画面を開いて、「公開承認チェック」押して更新してください</h2>
                       <br />
-                      <input type="submit" value="問題を作成する">
+                      <input type="submit"  value="問題を作成する" >
                       </form>
                 

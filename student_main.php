@@ -3,7 +3,7 @@
 	require('dbconnect.php');
 
 	//問題タイトルの取得
-	$sql = 'SELECT*FROM `main` WHERE`open_flag`=1';
+	$sql = 'SELECT*FROM `main` WHERE`open_flag`=1 AND `delete_flag`=0';
 
 	//SQL文の実行
     $stmt=$dbh->prepare($sql);

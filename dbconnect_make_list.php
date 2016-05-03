@@ -1,7 +1,7 @@
 
 <?php
 //問題のリスト化用に呼び出し
-	$sql_list = 'SELECT*FROM `main`';
+	$sql_list = 'SELECT*FROM `main`WHERE `delete_flag`=0';
 
 
     //SQL文の実行

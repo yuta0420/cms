@@ -3,6 +3,9 @@
   //DB呼び出し
   require('dbconnect.php');
 
+  //DB削除の場合
+  require('dbconnect_delete.php');
+
   //公開フラグ更新の場合
   require('dbconnect_open_flag.php');  
 
@@ -115,15 +118,9 @@
                             <i class="entypo-feather"></i>
                             <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><i class="fa fa-cogs"></i></a>
                         </div>
+                          <!-- 問題リストの呼び出し -->
+                          <?php require('teacher_make_list.php'); ?>	
 
-                        <div class="timeline-label">                                            	
-                        <!-- リストに問題タイトルを出力 -->
-                        	<a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><?php echo $question_each['title_que']; ?></a>
-                        <!-- リストに最終更新日時を出力 -->
-                          <?php 
-                          if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';
-                          else echo '<h5>'.$question_each['time_made'].'</h5>';  
-                          ?>   			
                         </div>
                     </div>
 
