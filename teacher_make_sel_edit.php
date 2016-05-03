@@ -120,19 +120,20 @@
 
                       // 答えの番号の選択 
                         echo '<h2>答えの番号を選択してください</h2>';
-                        echo '<select name="ans'.$i.'"">';
+                        echo $question_each_edit['answer'];
+                        echo '<select name="ans'.$i.'">';
 
-                        if($question_each_edit['answer']=="1")echo '<option value="1" selected>1</option>';
-                        else echo '<option value="1">1</option>';
+                        if($question_each_edit['answer']=="1"){echo '<option value="1" selected>1</option>';}
+                        else {echo '<option value="1">1</option>';}
 
-                        if($question_each_edit['answer']=="2")echo '<option value="2" selected>1</option>';
-                        else echo '<option value="2">2</option>';
+                        if($question_each_edit['answer']=="2"){echo '<option value="2" selected>2</option>';}
+                        else {echo '<option value="2">2</option>';}
 
-                        if($question_each_edit['answer']=="3")echo '<option value="3" selected>1</option>';
-                        else echo '<option value="3">3</option>';
+                        if($question_each_edit['answer']=="3"){echo '<option value="3" selected>3</option>';}
+                        else {echo '<option value="3">3</option>';}
 
-                        if($question_each_edit['answer']=="4")echo '<option value="4" selected>1</option>';
-                        else echo '<option value="4">4</option>';
+                        if($question_each_edit['answer']=="4"){echo '<option value="4" selected>4</option>';}
+                        else {echo '<option value="4">4</option>';}
                         
 
                         echo '</select>';
