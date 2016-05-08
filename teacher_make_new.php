@@ -53,8 +53,8 @@
                       <br />
 
                       <!-- 問題数の取得と送信データ作成 -->
-                      <?php //$number_que_new = (echo 'countRow("make_table")'); ?>
-                      <?php //echo '<input name="number_que_new" type="hidden" value="'.$number_que_new.'">'; ?>
+                      <?php $number_que_new = (echo 'countRow("make_table")'); ?>
+                      <?php echo '<input name="number_que_new" type="hidden" value="'.$number_que_new.'">'; ?>
 
                       <!-- 問題形式の取得 -->
                       <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
