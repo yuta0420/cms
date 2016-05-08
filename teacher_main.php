@@ -46,6 +46,52 @@
   <link rel="stylesheet" href="assets/css/form.css">
   <link rel="stylesheet" href="assets/css/timeline.css">
   <link rel="stylesheet" href="assets/css/main.css">
+
+  <script>
+    /**
+     * 行追加
+     */
+    function insertRow_sen(id) {
+        // テーブル取得
+        var table = document.getElementById(id);
+        // 行を行末に追加
+        var row = table.insertRow(-1);
+        // セルの挿入
+        var cell1 = row.insertCell(-1);
+        var cell2 = row.insertCell(-1);
+        var cell3 = row.insertCell(-1);
+        var cell4 = row.insertCell(-1);
+
+        // ボタン用 HTMLを作成
+        var button = '<input type="button" value="削除" onclick="deleteRow(this)" />';
+        // 行数取得
+        var row_len = table.rows.length;
+        // セルの内容入力
+        cell1.innerHTML = button;
+        cell2.innerHTML = "問題" + row_len ; 
+        cell3.innerHTML = '<input name="question"' + row_len + '" type="text" style="width:100px">'+'&emsp;'+'&emsp;';
+        cell4.innerHTML = '答え<input name="answer' + row_len + '" type="text" style="width:100px">';
+
+    }
+    /**
+     * 行削除
+     */
+    function deleteRow(obj) {
+        // 削除ボタンを押下された行を取得
+        tr = obj.parentNode.parentNode;
+        // trのインデックスを取得して行を削除する
+        tr.parentNode.deleteRow(tr.sectionRowIndex);
+    }
+
+    function countRow(id){
+
+      var table = document.getElementById(id);
+
+      return alert(table.rows.length);
+    }
+
+    </script>
+
 </head>
 <body>
 
@@ -145,7 +191,7 @@
       
       </div>
 
-      <div class="col-md-8 content-margin-top">
+      <div class="col-md-7 content-margin-top">
 
       	<div class="timeline-centered">
 
