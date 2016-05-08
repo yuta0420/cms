@@ -23,8 +23,6 @@
          {
            $sql = sprintf('INSERT INTO `selection`(`id_que`,`question`, `choose1`, `choose2`, `choose3`, `choose4`, `answer`,  `time_made`)VALUES (\'%d\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%d\',now())',$id_que['MAXID'],$_POST['question'.$i],$_POST['choose'.$i.'_1'],$_POST['choose'.$i.'_2'],$_POST['choose'.$i.'_3'],$_POST['choose'.$i.'_4'],$_POST['ans'.$i]);
 
-           var_dump($sql);
-
          //SQL文の実行
            $stmt=$dbh->prepare($sql);
            $stmt->execute();

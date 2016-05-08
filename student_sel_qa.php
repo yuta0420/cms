@@ -5,9 +5,18 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 ?>
 
 	
-	<?php echo $q[0]["title_que"]; ?>
+	<?php
+	//サニタイズ
+	$title_que=htmlspecialchars($q[0]["title_que"]);
+	$title_que_sub=htmlspecialchars($q[0]["title_que_sub"]);
+	?>
+	
+	
+	<?php echo $title_que; ?>
 	<br />
-	<?php echo $q[0]["title_que_sub"]; ?>
+	<br />
+	<?php echo $title_que_sub; ?>
+	<br />
 	
 	<form method="post">
 	
@@ -18,38 +27,45 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	$i=0;
 	foreach ($qas as $qa_each)
 	{
+
+		$question=htmlspecialchars($qa_each['question']);
+		$choose1=htmlspecialchars($qa_each['choose1']);
+		$choose2=htmlspecialchars($qa_each['choose2']);
+		$choose3=htmlspecialchars($qa_each['choose3']);
+		$choose4=htmlspecialchars($qa_each['choose4']);
+
 		echo '<input type="hidden" name="question'.$i.'" value="'.$qa_each['question'].'">';
 		echo '<input type="hidden" name="answer'.$i.'" value="'.$qa_each['answer'].'">';
 		$i++;
 
 		echo '問題'.$i;
 		echo '<br />';
-		echo$qa_each['question'];
+		echo$question;
 		echo '<br />';
 
 		
 
 		echo'<input name="st_answer';
 		echo $i;
-		echo '" type="radio" value="1">'.$qa_each['choose1'];
+		echo '" type="radio" value="1">'.$choose1;
 		echo '&nbsp';
 
 
 		echo'<input name="st_answer';
 		echo $i;
-		echo '" type="radio" value="2">'.$qa_each['choose2'];
+		echo '" type="radio" value="2">'.$choose2;
 		echo '&nbsp';
 
 
 		echo'<input name="st_answer';
 		echo $i;
-		echo '" type="radio" value="3">'.$qa_each['choose3'];
+		echo '" type="radio" value="3">'.$choose3;
 		echo '&nbsp';
 
 
 		echo'<input name="st_answer';
 		echo $i;
-		echo '" type="radio" value="4">'.$qa_each['choose4'];
+		echo '" type="radio" value="4">'.$choose4;
 		echo '&nbsp';
 
 		echo'<br />';

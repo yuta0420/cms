@@ -45,10 +45,10 @@
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
-                  <input name="question_title" type="text" style="width:500px" value="<?php echo $main['title_que']; ?>"><br />
+                  <input name="question_title" type="text" style="width:500px" value="<?php echo htmlspecialchars($main['title_que']); ?>"><br />
                   問題文を入力してください。（例：つぎの計算をしなさい）
                   <br />
-                  <input name="question_title_sub" type="text" style="width:500px" value="<?php echo $main['title_que_sub']; ?>"><br />
+                  <input name="question_title_sub" type="text" style="width:500px" value="<?php echo htmlspecialchars($main['title_que_sub']); ?>"><br />
                   <br />
                   小問題と答えを入力してください
                   <br />
@@ -66,7 +66,7 @@
                           echo'<td><input name="question';
                           echo$i;
                           echo '" type="text" style="width:100px" value=';
-                          echo$question_each_edit['question'];
+                          echo htmlspecialchars($question_each_edit['question']);
                           echo '></td>' ;
 
 
@@ -79,7 +79,7 @@
                           echo'<input name="answer';
                           echo $i;
                           echo '" type="text" style="width:100px" value=';
-                          echo$question_each_edit['answer']; 
+                          echo htmlspecialchars($question_each_edit['answer']); 
                           echo '></td>';
                           echo'</tr>';
 

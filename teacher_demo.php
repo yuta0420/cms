@@ -140,7 +140,7 @@
 
           <!-- ここに4列分のコンテナの記述が可能 -->
        
-        <div class="timeline-centered">
+        <div class="timeline-centered box_srcollbar">
 
        <?php
                 //リストから取得した$questionから$question_eachに1列ずつデータを格納（全要素）
@@ -161,8 +161,10 @@
                             
                           <?php
 
+                          //サニタイズ
+                          $title_que=htmlspecialchars($question_each['title_que']);
                           //問題タイトルの出力
-                          echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$question_each['title_que'].'</a></h2>';
+                          echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$title_que.'</a></h2>';
                           
                           // リストに最終更新日時を出力
                           if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';

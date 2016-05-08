@@ -14,7 +14,6 @@
 
         $sql = 'UPDATE `selection` SET `question`="'.$_POST['question'.$i].'",`choose1`='.$_POST['choose'.$i.'_1'].',`choose2`='.$_POST['choose'.$i.'_2'].',`choose3`='.$_POST['choose'.$i.'_3'].',`choose4`='.$_POST['choose'.$i.'_4'].',`answer`="'.$_POST['ans'.$i].'",`time_edit`=now() WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
 
-        var_dump($sql);
      
                 
          //SQL文の実行

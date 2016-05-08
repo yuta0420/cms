@@ -70,7 +70,7 @@
         cell1.innerHTML = button;
         cell2.innerHTML = "問題" + row_len ; 
         cell3.innerHTML = '<input name="question"' + row_len + '" type="text" style="width:100px">'+'&emsp;'+'&emsp;';
-        cell4.innerHTML = '答え<input name="answer' + row_len + '" type="text" style="width:100px">';
+        cell4.innerHTML = '答え<input name="answer' + (row_len-1) + '" type="text" style="width:100px">';
 
     }
     /**
@@ -149,7 +149,7 @@
               ?>   
 
               <!-- アイコン付き（問題リスト） -->
-               <div class="timeline-centered">       
+               <div class="timeline-centered box_srcollbar">       
 
                <?php
               	//リストから取得した$questionから$question_eachに1列ずつデータを格納（全要素）
