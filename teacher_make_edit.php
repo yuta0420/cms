@@ -108,6 +108,8 @@
 
                   <br />
                   <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
-                  <input type="submit" value="問題を更新する">
+                 <input type="submit" 
+                 onclick="return confirm('※注意※\n未完成でも、「公開承認チェック」を押していると\n問題が公開されてしまいます。'); "
+                 value="問題を更新する" >
                 </form>
                 

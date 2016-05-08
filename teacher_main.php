@@ -24,6 +24,11 @@
   //問題リスト用に呼び出し
   require('dbconnect_make_list.php');
 
+  //エラー判定用
+  if(empty($_POST)){
+    $error['text']='blank';
+  }
+
   //データベースから切断
 	$dbh = null;
 ?>
