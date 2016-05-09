@@ -153,7 +153,7 @@
 
                         <div class="timeline-icon bg-success">
                             <i class="entypo-feather"></i>
-                            <i class="fa fa-cogs"></i>
+                            <i class="fa fa-file-text-o"></i>
                         </div>
 
                         <div class="timeline-label">
@@ -214,7 +214,7 @@
 
                 <div class="timeline-icon bg-success">
                     <i class="entypo-feather"></i>
-                    <i class="fa fa-cogs"></i>
+                    <i class="fa fa-file-text-o"></i>
                 </div>
 
                 <div class="timeline-label">

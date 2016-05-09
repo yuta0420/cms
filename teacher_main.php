@@ -126,7 +126,7 @@
 
                         <div class="timeline-icon bg-success">
                             <i class="entypo-feather"></i>
-                            <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><i class="fa fa-cogs"></i></a>
+                            <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><i class="fa fa-edit"></i></a>
                         </div>
                           <!-- 問題リストの呼び出し -->
                           <?php require('teacher_make_list.php'); ?>	
@@ -165,7 +165,7 @@
 
                 <div class="timeline-icon bg-success">
                     <i class="entypo-feather"></i>
-                    <i class="fa fa-cogs"></i>
+                    <i class="fa fa-edit"></i>
                 </div>
 
                 <div class="timeline-label">
@@ -180,12 +180,7 @@
                   if($_POST["sel"]=="0"){ 
                       require('teacher_make_new.php');
                     }
-                  }
-                ?>
-
-                <?php
-                                  
-                if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
+                 
                   if($_POST["sel"]=="1"){
                       require('teacher_make_sel_new.php');
                     }
@@ -194,20 +189,23 @@
 
 
                 <?php
-                  if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
+                if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
                     if($_GET["sel"]=="0"){
                       require('teacher_make_edit.php');
                     }
-                  }
-                ?>
-
-                <?php
-                  if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
+                
                        if($_GET["sel"]=="1"){
                         require('teacher_make_sel_edit.php');
                        }
                   }
-                ?>               
+                ?>
+
+                <?php if(empty($_POST["number_que"])&&empty($_GET["id_que"])){
+                  echo '左上の問題タイプ選択ボタンと問題数を選択して、「新規作成」ボタンを押すか<br />';
+                  echo '左のリストから問題を選んで、再編集してくさい。<br />';
+                  echo '※問題を公開する場合は、再編集画面で「公開承認チェック」を押してください。<br />';
+                  echo '※問題が未完成でも再編集画面から再度編集できます。<br />';
+                  }?>           
                 	
                 </div>
             </div>

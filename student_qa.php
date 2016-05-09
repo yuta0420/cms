@@ -9,14 +9,18 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	$title_que_sub=htmlspecialchars($q[0]["title_que_sub"]);
 	?>
 	
-	
+	<form method="post" name="form1">
+
+	経過時間：<input type="text" name="time" size="8"><br />
+	<br />
+
 	<?php echo $title_que; ?>
 	<br />
 	<br />
 	<?php echo $title_que_sub; ?>
 	<br />
-	
-	<form method="post">
+
+
 	<table>
 
 	<?php
@@ -65,6 +69,10 @@ if(isset($_POST['number0']) && !empty($_POST['number0'])){
 
 	<?php
 	// $number=($question_each['num_que']);
+
+	echo '経過時間:';
+	echo $_POST['time'];
+	echo '<br />';
 
 	
 	for($i=0; $i<$_POST['number0']; $i++)//編集必要（問題数の取得）

@@ -87,6 +87,8 @@
 		echo'</title>';
 	?>
 
+  <?php require('time_get.php');?>
+
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.css">
   <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.css">
@@ -97,7 +99,7 @@
  
 
 </head>
-<body >
+<body onLoad="disp()">
 
   <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -156,7 +158,7 @@
 
                         <div class="timeline-icon bg-success">
                             <i class="entypo-feather"></i>
-                            <i class="fa fa-cogs"></i>
+                            <i class="fa fa-file-text-o"></i>
                         </div>
 
                         <div class="timeline-label">
@@ -216,7 +218,7 @@
 
                 <div class="timeline-icon bg-success">
                     <i class="entypo-feather"></i>
-                    <i class="fa fa-cogs"></i>
+                    <i class="fa fa-file-text-o"></i>
                 </div>
 
                 <div class="timeline-label">
@@ -228,8 +230,11 @@
                   if(isset($_GET['id_que'])&&($q[0]['sel_type']=='0')){
                 	 require("student_qa.php");
                   }
-                  if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
+                  else if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
                    require("student_sel_qa.php");
+                  }
+                  else{
+                    echo '<h2>左のリストから問題を選択してください<h2>';
                   }
                 ?>
                 
