@@ -7,19 +7,28 @@
                   <br />
                   <input name="question_title_sub" type="text" style="width:500px"><br />
                   <br />
+
+                  問題の追加
+                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table')" /><br />
+                  <br />
+
                   小問題と答えを入力してください
                   <br />
 
-                <table>
+                <table id="make_sel_table">
                       <?php
                       for ($i=0; $i < $_POST["number_que"]; $i++)
                       {
+                          echo '<tr>';
+                          echo'<td><input type="button" value="削除" onclick="deleteRow(this)" /></td>';
+                          echo '<td>';
+                          echo '<table>';
 
                           //問題の作成
                           echo'<tr>';
-                          echo'<th>問題文';
+                          echo'<td>問題文';
                           echo($i+1);
-                          echo'</th>'; 
+                          echo'</td>'; 
                           echo'<td><input name="question';
                           echo$i;
                           echo '" type="text" style="width:300px"></td>' ;
@@ -30,32 +39,32 @@
 
                         //答えの候補の作成
                         echo'<tr>';
-                        echo'<th>候補1';
-                        echo '</th>';
+                        echo'<td>候補1';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_1" type="text" style="width:100px"></td>';
                         echo'</tr>';
 
                         echo'<tr>';
-                        echo'<th>候補2';
-                        echo '</th>';
+                        echo'<td>候補2';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_2" type="text" style="width:100px"></td>';
                         echo'</tr>';
 
                         echo'<tr>';
-                        echo'<th>候補3';
-                        echo '</th>';
+                        echo'<td>候補3';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_3" type="text" style="width:100px"></td>';
                         echo'</tr>';
 
                         echo'<tr>';
-                        echo'<th>候補4';
-                        echo '</th>';
+                        echo'<td>候補4';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_4" type="text" style="width:100px"></td>';
@@ -75,17 +84,19 @@
                         echo '<option value="4">4</option>';
 
                         echo '</select>';
+                        echo '</td>';
 
-                        echo '<br />';
-                        echo '<br />';      
+                        echo '</tr>';    
                       
                       }
                       ?>
 
+                      </table>
+
                       
                       <?php echo '<input name="number_que_new" type="hidden" value="'.$_POST['number_que'].'">'; ?>
                       <?php echo '<input name="sel_type" type="hidden" value="1">'; ?>
-                       <h3>※生徒に公開する場合は、右のリストから編集画面を開いて、「公開承認チェック」押して更新してください</h3>
+                       
                       <br />
-                      <input type="submit" value="問題を作成する">
+                      <input type="submit"  onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。'); "value="問題を作成する" >
                       </form>

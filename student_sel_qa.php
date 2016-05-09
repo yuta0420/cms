@@ -76,7 +76,7 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	?>
 	<br />
 	<?php echo '<input type="hidden" name="number1" value="'.$i.'">'; ?>
-	<input type="submit" value="答えを確認する">
+	<input type="submit" onclick="return confirm('答え合わせをしますか？');"　value="答えを確認する">
 	</form>
 
 <?php } ?>

@@ -53,13 +53,13 @@
                       <br />
 
                       <!-- 問題数の取得と送信データ作成 -->
-                      <?php $number_que_new = (echo 'countRow("make_table")'); ?>
-                      <?php echo '<input name="number_que_new" type="hidden" value="'.$number_que_new.'">'; ?>
+                      <?php //$number_que_new = (echo 'countRow("make_table")'); ?>
+                      <?php //echo '<input name="number_que_new" type="hidden" value="'.$number_que_new.'">'; ?>
 
                       <!-- 問題形式の取得 -->
                       <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
                        
                       <br />
-                      <input type="submit"  onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。'); "value="問題を作成する" >
+                      <input type="submit"  onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。');"value="問題を作成する" >
                       </form>
                 

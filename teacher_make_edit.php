@@ -45,24 +45,32 @@
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
-                  <input name="question_title" type="text" style="width:500px" value="<?php echo htmlspecialchars($main['title_que']); ?>"><br />
+                  <input name="question_title" type="text" style="width:80%" value="<?php echo htmlspecialchars($main['title_que']); ?>"><br />
                   問題文を入力してください。（例：つぎの計算をしなさい）
                   <br />
-                  <input name="question_title_sub" type="text" style="width:500px" value="<?php echo htmlspecialchars($main['title_que_sub']); ?>"><br />
+                  <input name="question_title_sub" type="text" style="width:80%" value="<?php echo htmlspecialchars($main['title_que_sub']); ?>"><br />
                   <br />
+
+                  問題の追加
+                  <input type="button" value="追加" onclick="insertRow_sen('make_table_edit')" /><br />
+                  <br />
+
                   小問題と答えを入力してください
                   <br />
 
-                  <table>
+                  <table id='make_table_edit'>
                       <?php
                       $i=0;
                       foreach($questions_edit as $question_each_edit)
                       {
                           //問題の作成
                           echo'<tr>';
-                          echo'<th>問題';
+                          echo'<td>';
+                          echo'<input type="button" value="削除" onclick="deleteRow(this)" />';
+                          echo'</td>';
+                          echo'<td>問題';
                           echo($i+1);
-                          echo'</th>'; 
+                          echo'</td>'; 
                           echo'<td><input name="question';
                           echo$i;
                           echo '" type="text" style="width:100px" value=';

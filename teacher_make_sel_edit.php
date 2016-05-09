@@ -51,33 +51,46 @@
                   <br />
                   <input name="question_title_sub" type="text" style="width:500px" value="<?php echo htmlspecialchars($main['title_que_sub']); ?>"><br />
                   <br />
+
+                   問題の追加
+                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table_edit')" /><br />
+                  <br />
+
                   小問題と答えを入力してください
                   <br />
 
-                  <table>
+                  <table id='make_sel_table_edit'>
                       <?php
                       $i=0;
                       foreach($questions_edit as $question_each_edit)
                       {
+                          echo '<tr>';
+                          echo'<td><input type="button" value="削除" onclick="deleteRow(this)" /></td>';
+                          echo '<td>';
+                          echo '<table>';
+
+
+
                           //問題の作成
                           echo'<tr>';
-                          echo'<th>問題文';
+                          echo'<td>問題文';
                           echo($i+1);
-                          echo'</th>'; 
+                          echo'</td>';
                           echo'<td><input name="question';
                           echo$i;
                           echo '" type="text" style="width:300px" value="';
                           echo htmlspecialchars($question_each_edit['question']);
                           echo '"></td>';
-                          echo'</tr>';
+                          echo '</tr>';
+                          
 
 
-                      
+                        
 
                         //答えの候補の作成
                         echo'<tr>';
-                        echo'<th>候補1';
-                        echo '</th>';
+                        echo'<td>候補1';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_1" type="text" style="width:100px" value="';
@@ -86,8 +99,8 @@
                         echo'</tr>';
 
                         echo'<tr>';
-                        echo'<th>候補2';
-                        echo '</th>';
+                        echo'<td>候補2';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_2" type="text" style="width:100px" value="';
@@ -96,8 +109,8 @@
                         echo'</tr>';
 
                         echo'<tr>';
-                        echo'<th>候補3';
-                        echo '</th>';
+                        echo'<td>候補3';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_3" type="text" style="width:100px" value="';
@@ -106,16 +119,17 @@
                         echo'</tr>';
 
                         echo'<tr>';
-                        echo'<th>候補4';
-                        echo '</th>';
+                        echo'<td>候補4';
+                        echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
                         echo '_4" type="text" style="width:100px" value="';
                         echo htmlspecialchars($question_each_edit['choose4']);
                         echo '"></td>';
+                        echo '</tr>';
 
-                        
                         echo '</table>';
+                        
                         echo '<br />';
 
                       // 答えの番号の選択 
@@ -137,15 +151,16 @@
                         
 
                         echo '</select>';
-
-                        echo '<br />';
-                        echo '<br />';
+                        echo '</td>';
+                        
 
                         echo'<input name="id_sub_edit';
                         echo $i;
                         echo '" type="hidden" value=';
                         echo$question_each_edit['id_sub']; 
                         echo '>';
+
+                        echo '</tr>';
 
                         $i++;
                       }
@@ -165,6 +180,9 @@
 
                   <br />
                   <?php echo '<input name="sel_type" type="hidden" value="1">'; ?>
-                  <input type="submit" value="問題を更新する">
+                  
+                 <input type="submit" 
+                 onclick="return confirm('※注意※\n未完成でも、「公開承認チェック」を押していると\n問題が公開されてしまいます。'); "
+                 value="問題を更新する" >
                 </form>
                 
