@@ -1,5 +1,5 @@
 
-                <form method="post" action="teacher_main.php">
+                <form method="post" name="form1" action="teacher_main.php">
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
@@ -52,12 +52,22 @@
 
                       <br />
 
+
                       <!-- 問題数の取得と送信データ作成 -->
-                      <?php //$number_que_new = (echo 'countRow("make_table")'); ?>
-                      <?php //echo '<input name="number_que_new" type="hidden" value="'.$number_que_new.'">'; ?>
+
+                      <script>
+                        var id = countRow('make_table');
+                        console.log('hoge');
+                        document.form1.number_que_new.value = id;
+                      </script>
+                      <!-- 
+                        jsのDOM操作で指定したid or nameの要素のvalueに値をセットする
+                        PHPの変数にJSの変数を代入する
+                      -->
+                      <input name="number_que_new" type="hidden">
 
                       <!-- 問題形式の取得 -->
-                      <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
+                      <input name="sel_type" type="hidden" value="0">
                        
                       <br />
                       <input type="submit"  onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。');"value="問題を作成する" >

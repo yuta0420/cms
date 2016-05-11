@@ -20,7 +20,7 @@
         // セルの内容入力
         cell1.innerHTML = button;
         cell2.innerHTML = "問題" + row_len ; 
-        cell3.innerHTML = '<input name="question"' + (row_len-1) + '" type="text" style="width:100px">'+'&emsp;'+'&emsp;';
+        cell3.innerHTML = '<input name="question' + (row_len-1) + '" type="text" style="width:100px">'+'&emsp;'+'&emsp;';
         cell4.innerHTML = '答え<input name="answer' + (row_len-1) + '" type="text" style="width:100px">';
 
     }
@@ -80,9 +80,13 @@
 
     function countRow(id){
 
-      var table = document.getElementById(id);
+        var table = document.getElementById(id);
 
-      return alert(table.rows.length);
+        var row_len=table.rows.length;
+
+        return row_len;
+
+      
     }
 
     </script>

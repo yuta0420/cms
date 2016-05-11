@@ -105,7 +105,7 @@
 
               <!-- 生徒用デモ画面呼び出し -->
 
-              <a href="teacher_demo.php">生徒用画面デモはこちら</a>
+              <a href="teacher_demo.php">生徒用画面デモはこちら</a><br />
                   
               <!-- 問題数選択フォーム呼び出し -->
               <?php

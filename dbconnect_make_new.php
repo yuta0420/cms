@@ -1,3 +1,10 @@
+  <script>
+    var id = countRow('make_table');
+    console.log(id);
+    //document.form1.number_que_new.value = id;
+  </script>
+
+
  <?php
   //MySQLの問題メインファイルの更新
   if(isset($_POST['question_title_new']) && !empty($_POST['question_title_new'])){
@@ -5,12 +12,18 @@
 
         $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$_POST['number_que_new']."',0 ,now())";
 
+        var_dump($_POST);
+        var_dump($sql_sav_main);
+
+        
         //SQL文の実行
         $stmt=$dbh->prepare($sql_sav_main);
         $stmt->execute();
 
         //MySQL問題メインのID取得（問題内容questionのDBのサブID用）
         $sql_id = 'SELECT MAX(`id_que`) AS MAXID FROM `main`';
+
+        var_dump($sql_id);
 
         //SQL文の実行
         $stmt=$dbh->prepare($sql_id);
@@ -22,6 +35,8 @@
         for ($i=0; $i < $_POST['number_que_new']; $i++)
          {
            $sql = sprintf('INSERT INTO `question`(`id_que`, `question`, `answer`,`time_made`) VALUES (\'%d\', \'%s\',\'%s\',now())',$id_que['MAXID'],$_POST['question'.$i],$_POST['answer'.$i]);
+
+           var_dump($sql);
 
          //SQL文の実行
            $stmt=$dbh->prepare($sql);
