@@ -1,5 +1,5 @@
 
-<!-- 問題の出力 -->
+<!-- 問題と回答欄の出力 -->
 <?php
 if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 ?>
@@ -11,9 +11,11 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	
 	<form method="post" name="form1">
 
+	<!-- 経過時間の出力 -->
 	経過時間：<input type="text" name="time" size="8"><br />
 	<br />
 
+	<!-- 問題のタイトルを出力 -->
 	<?php echo $title_que; ?>
 	<br />
 	<br />
@@ -21,6 +23,7 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	<br />
 
 
+	<!-- 問題の出力 -->
 	<table>
 
 	<?php
@@ -33,10 +36,12 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 		$question=htmlspecialchars($qa_each['question']);
 		$answer=htmlspecialchars($qa_each['answer']);
 
-		//問題表示
+		//答え合わせ用に再度、問題と答えをhiddenで送信
 		echo '<input type="hidden" name="question'.$i.'" value="'.$question.'">';
 		echo '<input type="hidden" name="answer'.$i.'" value="'.$answer.'">';
 		$i++;
+
+		//問題表示
 		echo'<tr>';
 		echo'<td>問題';
 		echo$i; 
@@ -50,7 +55,11 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	?>
 	</table>
 	<br />
+
+	<!-- 答え合わせ用に問題数をhiddenで送信 -->
 	<?php echo '<input type="hidden" name="number0" value="'.$i.'">'; ?>
+
+	<!-- 回答が終わったら答え合わせ、確認メッセージを出力 -->
 	<input type="submit" onclick="return confirm('答え合わせをしますか？');"value="答えを確認する">
 	</form>
 
@@ -70,12 +79,13 @@ if(isset($_POST['number0']) && !empty($_POST['number0'])){
 	<?php
 	// $number=($question_each['num_que']);
 
+	//回答にかかった時間を表示
 	echo '経過時間:';
 	echo $_POST['time'];
 	echo '<br />';
 
-	
-	for($i=0; $i<$_POST['number0']; $i++)//編集必要（問題数の取得）
+	//回乙内容と正誤判定
+	for($i=0; $i<$_POST['number0']; $i++)
 	{
 		//サニタイズ
 		$st_answer=htmlspecialchars($_POST['st_answer'.($i+1)]);
@@ -91,7 +101,7 @@ if(isset($_POST['number0']) && !empty($_POST['number0'])){
 		echo '<th>';
 		echo '&nbsp';
 
-		//答えの判定
+		//答えの判定（文字列の長さと内容が一致した場合は正解）
 		if(!empty($st_answer)){
 			if((strpos($_POST['answer'.$i],$st_answer) !== false)&&(strlen($_POST['answer'.$i])==strlen($st_answer)))echo '正解';
 			else echo '不正解';

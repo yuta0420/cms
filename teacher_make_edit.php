@@ -52,7 +52,7 @@
                   <br />
 
                   問題の追加
-                  <input type="button" value="追加" onclick="insertRow_sen('make_table_edit')" /><br />
+                  <input type="button" value="追加" onclick="insertRow_sen('make_table_edit',<?php echo $main["num_que"];?>)" /><br />
                   <br />
 
                   小問題と答えを入力してください

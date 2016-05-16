@@ -1,50 +1,56 @@
-  <script>
-    var id = countRow('make_table');
-    console.log(id);
-    //document.form1.number_que_new.value = id;
-  </script>
+<!-- 文章問題の新規作成処理 -->
+<!-- 編集時のIDがPOST送信されたら処理を実行 -->
+<!-- ①送信された問題数の取得（実際は問題数ではなく、送信された問題番号のうち最も大きい番号を取得）-->
+<!-- ②問題メインテーブルのINSERT処理 -->
+<!-- ③問題メインテーブルから最も新しい問題ID(MAX関数)を取得（questionテーブルのサブID用） -->
+<!-- ④問題文と答えを'question'テーブルにINSERT処理 -->
 
+
+<!-- ①送信された問題数の取得-->
+<?php for($i=0;$i<50;$i++){
+    if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
+      $number_que_new = $i+1;
+    }
+  }
+?>
+  
 
  <?php
-  //MySQLの問題メインファイルの更新
+  //②問題メインテーブルのINSERT処理
   if(isset($_POST['question_title_new']) && !empty($_POST['question_title_new'])){
     if($_POST['sel_type']=='0'){
 
-        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$_POST['number_que_new']."',0 ,now())";
+        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."',0 ,now())";
 
-        var_dump($_POST);
-        var_dump($sql_sav_main);
+        //var_dump($_POST);
 
         
         //SQL文の実行
         $stmt=$dbh->prepare($sql_sav_main);
         $stmt->execute();
 
-        //MySQL問題メインのID取得（問題内容questionのDBのサブID用）
+        //③問題メインテーブルから最も新しい問題ID(MAX関数)を取得（questionテーブルのサブID用）
         $sql_id = 'SELECT MAX(`id_que`) AS MAXID FROM `main`';
-
-        var_dump($sql_id);
 
         //SQL文の実行
         $stmt=$dbh->prepare($sql_id);
         $stmt->execute();
 
-        $id_que = $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+        $id_que =$stmt->fetch(PDO::FETCH_ASSOC);
 
-        if(isset($_POST['question1']) && !empty($_POST['question1'])){
-        for ($i=0; $i < $_POST['number_que_new']; $i++)
+        //④問題文と答えを'question'テーブルにINSERT処理
+        for ($i=0; $i < $number_que_new; $i++)
          {
-           $sql = sprintf('INSERT INTO `question`(`id_que`, `question`, `answer`,`time_made`) VALUES (\'%d\', \'%s\',\'%s\',now())',$id_que['MAXID'],$_POST['question'.$i],$_POST['answer'.$i]);
+          if(isset($_POST['question'.$i])){
+                     $sql = sprintf('INSERT INTO `question`(`id_que`, `question`, `answer`,`time_made`) VALUES (\'%d\', \'%s\',\'%s\',now())',$id_que['MAXID'],$_POST['question'.$i],$_POST['answer'.$i]);
 
-           var_dump($sql);
+          //var_dump($sql);
 
          //SQL文の実行
            $stmt=$dbh->prepare($sql);
            $stmt->execute();
          }
-
-       }
-
+      }
     }
   }
 

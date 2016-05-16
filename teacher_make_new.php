@@ -9,9 +9,10 @@
                   <br />
                   <input name="question_title_sub" type="text" style="width:500px"><br />
                   <br />
+
                   
                   問題の追加
-                  <input type="button" value="追加" onclick="insertRow_sen('make_table')" /><br />
+                  <input type="button" value="追加" onclick="insertRow_sen('make_table',<?php echo $_POST["number_que"];?>)" /><br />
                   <br />
 
                   小問題のタイトルと答えを入力してください
@@ -55,11 +56,7 @@
 
                       <!-- 問題数の取得と送信データ作成 -->
 
-                      <script>
-                        var id = countRow('make_table');
-                        console.log('hoge');
-                        document.form1.number_que_new.value = id;
-                      </script>
+                     
                       <!-- 
                         jsのDOM操作で指定したid or nameの要素のvalueに値をセットする
                         PHPの変数にJSの変数を代入する

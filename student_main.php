@@ -1,8 +1,17 @@
+<!-- 生徒用ページのメイン画面 -->
+<!-- ①MYSQLへの接続DB呼び出し -->
+<!-- ②画面左側に問題リストの呼び出し -->
+<!-- ③選択された問題と回答欄を呼び出す（答えの出力含む） -->
+
+
+
+<!-- ①MYSQLへの接続DB呼び出し -->
 <?php
 
+  //DBへの接続
 	require('dbconnect.php');
 
-	//問題タイトルの取得
+	//問題リスト呼び出し用に問題メインテーブルからレコード取得
 	$sql = 'SELECT*FROM `main` WHERE`open_flag`=1 AND `delete_flag`=0';
 
 	//SQL文の実行
@@ -23,8 +32,12 @@
   }
     
 
+    //GET送信でIDを取得したとき、問題を呼び出せるようにメイン、'question'、'selection'にSQL文を送る
+
+    //格納用変数の初期化
     $q = array();
-    if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
+
+    if(isset($_GET['id_que']) && !empty($_GET['id_que'])){//GET送信でIDが送られたとき
 		    //対象IDのデータ取得
         $sql = 'SELECT*FROM `main` WHERE `id_que`='.$_GET['id_que'];
 
@@ -32,11 +45,14 @@
         $stmt=$dbh->prepare($sql);
         $stmt->execute();
 
-        
+        //取得したデータの格納
         $rec=$stmt->fetch(PDO::FETCH_ASSOC);
         $q[] = $rec;
 
-        if($q[0]['sel_type']==0){
+
+        //取得したデータから問題タイプを判定して問題を出力
+        if($q[0]['sel_type']==0){//文章問題
+
           //対象IDの問題と答えの取得(問題タイプごと)
   		    $sql = 'SELECT*FROM `question` WHERE `id_que`='.$_GET['id_que'];
 
@@ -59,6 +75,7 @@
 		    //格納する変数の初期化
 			$qas = array();
 
+      //データがfalseになるまで問題を取得
 			while(1){
 		    //データを取得
 		    $rec=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -87,6 +104,7 @@
 		echo'</title>';
 	?>
 
+  <!-- 問題回答時間取得用の関数 -->
   <?php require('time_get.php');?>
 
   <!-- CSS -->
@@ -137,7 +155,7 @@
 
 
 
- 
+ <!-- ②画面左側に問題リストの呼び出し -->
 
   <div class="container">
     <div class="row">
@@ -200,13 +218,12 @@
         </article>
 
       </div> 
-
-
-
-       
-
-       
+  
       </div>
+
+
+
+      <!-- ③選択された問題と回答欄を呼び出す（答えの出力含む） -->
 
       <div class="col-md-8 content-margin-top">
 
@@ -227,12 +244,15 @@
 
                 <!-- 回答・答え合わせページの呼び出し -->
                 <?php
+                //文章問題の呼び出し
                   if(isset($_GET['id_que'])&&($q[0]['sel_type']=='0')){
                 	 require("student_qa.php");
                   }
+                  //選択問題の呼び出し
                   else if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
                    require("student_sel_qa.php");
                   }
+                  //それ以外の場合は説明文を出力
                   else{
                     echo '<h2>左のリストから問題を選択してください<h2>';
                   }

@@ -53,7 +53,7 @@
                   <br />
 
                    問題の追加
-                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table_edit')" /><br />
+                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table_edit', <?echo $main['num_que']?>)" /><br />
                   <br />
 
                   小問題と答えを入力してください
@@ -152,6 +152,8 @@
 
                         echo '</select>';
                         echo '</td>';
+
+                        echo '</tr>';
                         
 
                         echo'<input name="id_sub_edit';
@@ -160,7 +162,7 @@
                         echo$question_each_edit['id_sub']; 
                         echo '>';
 
-                        echo '</tr>';
+                        
 
                         $i++;
                       }

@@ -13,9 +13,11 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 
 	<form method="post" name="form1">
 	
+	<!-- 経過時間の取得 -->
 	経過時間：<input type="text" name="time" size="8"><br />
 	<br />
 	
+	<!-- タイトルの取得 -->
 	<?php echo $title_que; ?>
 	<br />
 	<br />
@@ -25,19 +27,24 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	<?php
 	// $number=($question_each['num_que']);
 
+	//問題の出力
+
+	//ループカウント用の変数を初期化
 	$i=0;
 	foreach ($qas as $qa_each)
 	{
 
+		//サニタイズ
 		$question=htmlspecialchars($qa_each['question']);
 		$choose1=htmlspecialchars($qa_each['choose1']);
 		$choose2=htmlspecialchars($qa_each['choose2']);
 		$choose3=htmlspecialchars($qa_each['choose3']);
 		$choose4=htmlspecialchars($qa_each['choose4']);
 
+		//答え合わせ用に問題と答えを再度hiddenで送信
 		echo '<input type="hidden" name="question'.$i.'" value="'.$qa_each['question'].'">';
 		echo '<input type="hidden" name="answer'.$i.'" value="'.$qa_each['answer'].'">';
-		$i++;
+		$i++;//カウントアップ
 
 		echo '問題'.$i;
 		echo '<br />';
@@ -88,6 +95,7 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 <?php
 if(isset($_POST['number1']) && !empty($_POST['number1'])){
 
+	//経過時間の取得
 	echo '経過時間:';
 	echo $_POST['time'];
 	echo '<br />';
@@ -111,6 +119,7 @@ if(isset($_POST['number1']) && !empty($_POST['number1'])){
 		echo '<th>';
 		echo '&nbsp';
 		if($_POST['st_answer'.($i+1)]==$_POST['answer'.$i])echo '正解';
+		//問題番号が一致していたら正解
 		else echo '不正解';
 		echo '&nbsp';
 		echo '答え：';

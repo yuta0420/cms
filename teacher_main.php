@@ -52,6 +52,7 @@
   <link rel="stylesheet" href="assets/css/timeline.css">
   <link rel="stylesheet" href="assets/css/main.css">
 
+  <!-- テーブル行数編集用関数（JAVA script） -->
   <?php require('function_table.php');?>
 
 </head>
