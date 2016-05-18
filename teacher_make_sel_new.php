@@ -9,7 +9,7 @@
                   <br />
 
                   問題の追加
-                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table', <?echo $main['num_que']?>)" /><br />
+                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table', <?php echo $_POST["number_que"];?>)" /><br />
                   <br />
 
                   小問題と答えを入力してください
@@ -21,11 +21,12 @@
                       {
                           echo '<tr>';
                           echo'<td><input type="button" value="削除" onclick="deleteRow(this)" /></td>';
-                          echo '<td>';
-                          echo '<table>';
+                          
 
                           //問題の作成
-                          echo'<tr>';
+                          echo'<td>';
+                          echo '<table>';
+                          echo '<tr>';
                           echo'<td>問題文';
                           echo($i+1);
                           echo'</td>'; 

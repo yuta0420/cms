@@ -46,6 +46,7 @@
 
     function insertRow_sel(id, number) {
         cnt++;
+
         // テーブル取得
         var table = document.getElementById(id);
         // 行を行末に追加
