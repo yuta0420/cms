@@ -11,6 +11,7 @@
       $number_que_new = $i+1;
     }
   }
+  $number_true=$number_que_new;//取得した問題数を格納
 ?>
 
  <?php
@@ -50,7 +51,16 @@
            $stmt=$dbh->prepare($sql);
            $stmt->execute();
          }
+         else $number_true--;
        }
+
+       // 問題数を更新
+      $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$id_que['MAXID']);
+
+      var_dump($sql);
+      //SQL文の実行
+           $stmt=$dbh->prepare($sql);
+           $stmt->execute();
     }
   }
 

@@ -15,8 +15,10 @@
       $number_que_edit = $i+1;//問題が存在したとき、問題数として最新の番号に更新（問題数のため+1）
     }
   }
-  //echo $number_que_edit.'<br />';
-  //var_dump($_POST);
+  $number_true=$number_que_edit;//取得した問題数を格納
+  echo $number_que_edit;
+  echo '問題数：';
+  echo $number_true;
   ?>
 
  <?php
@@ -41,6 +43,7 @@
       }if(!isset($_POST['question'.$i])){
         //③-2 削除されて送信されていない場合は、DELETE処理を実行
         $sql='DELETE FROM `selection` WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
+        $number_true--;//問題が存在しない場合
       }
 
         //var_dump($sql);
@@ -64,8 +67,18 @@
              $stmt=$dbh->prepare($sql);
              $stmt->execute();
            }
+           else $number_true--;//問題が存在しない場合
          }
         }
+        // 問題数を更新
+      $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$_POST['id_que_edit']);
+        echo '問題数：';
+    echo $number_true;
+
+      var_dump($sql);
+      //SQL文の実行
+           $stmt=$dbh->prepare($sql);
+           $stmt->execute();
    }  
   }
 

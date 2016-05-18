@@ -1,33 +1,45 @@
+<!-- 先生用（問題作成者用）のメインページ -->
+<!-- ①DB接続とDB更新用のファイル呼び出し -->
+<!-- 【未実装】②ログイン時のセッションとログイン判定 -->
+<!-- ③自分が作った問題の生徒側画面のデモページを表示 -->
+<!-- ④新規作成（初期問題数・タイプ選択）ボタンの作成 -->
+<!-- ⑤ページの左側に問題リストを呼び出し -->
+<!-- ⑥新規作成・問題編集（公開承認フラグ含む）の呼び出し -->
+
+
+
+
+<!-- ①DB接続とDB更新用のファイル呼び出し -->
 <?php
 
-  //DB呼び出し
+  //DB接続関数の呼び出し
   require('dbconnect.php');
 
-  //DB削除の場合
+  //テーブルのレコードを削除する場合
   require('dbconnect_delete.php');
 
-  //公開フラグ更新の場合
+  //問題の各レコードの公開フラグ更新の場合
   require('dbconnect_open_flag.php');  
 
-  //文章問題の更新の場合
+  //文章問題のレコードを更新する場合
   require('dbconnect_make_edit.php');
 
-  //文章問題の新規追加の場合
+  //文章問題の新規作成時のレコード追加をする場合
   require('dbconnect_make_new.php');
 
-  //選択問題の新規追加の場合
+  //選択問題の新規作成時のレコード追加をする場合
   require('dbconnect_make_sel_new.php');
 
-  //選択問題の更新の場合
+  //選択問題のレコードを更新する場合
   require('dbconnect_make_sel_edit.php');
 
-  //問題リスト用に呼び出し
+  //ページに問題リストを呼び出す場合
   require('dbconnect_make_list.php');
 
   //エラー判定用
-  if(empty($_POST)){
-    $error['text']='blank';
-  }
+  // if(empty($_POST)){
+  //   $error['text']='blank';
+  // }
 
   //データベースから切断
 	$dbh = null;
@@ -104,11 +116,11 @@
 
              
 
-              <!-- 生徒用デモ画面呼び出し -->
+              <!-- ③自分が作った問題の生徒側画面のデモページを表示 -->
 
               <a href="teacher_demo.php">生徒用画面デモはこちら</a><br />
                   
-              <!-- 問題数選択フォーム呼び出し -->
+              <!-- ④新規作成（初期問題数・タイプ選択）ボタンの作成 -->
               <?php
                   require('number_make_new.php');
               ?>   
@@ -116,6 +128,7 @@
               <!-- アイコン付き（問題リスト） -->
                <div class="timeline-centered box_srcollbar">       
 
+                <!-- ⑤ページの左側に問題リストを呼び出し -->
                <?php
               	//リストから取得した$questionから$question_eachに1列ずつデータを格納（全要素）
               	foreach ($questions as $question_each) {
@@ -127,6 +140,7 @@
 
                         <div class="timeline-icon bg-success">
                             <i class="entypo-feather"></i>
+                            <!-- アイコンの文字上にも編集画面用のパラメータを送信 -->
                             <a href="teacher_main.php?id_que=<?php echo $question_each['id_que'];?>&sel=<?php echo $question_each['sel_type'];?>"><i class="fa fa-edit"></i></a>
                         </div>
                           <!-- 問題リストの呼び出し -->
@@ -173,34 +187,36 @@
 
                 <!-- このDivに8列分のコンテナとして記述 -->
                 
-                <!-- 問題作成用フォーム呼び出し -->
+                <!-- ⑥新規作成・問題編集（公開承認フラグ含む）の呼び出し -->
 
                 <?php
-                                 
+                //問題数を設定して新規作成ボタンが押された場合に新規作成画面を呼び出す
+                //"sel"が0のときは、文章問題、"1"のときには選択問題を呼び出す            
                 if(isset($_POST["number_que"]) && !empty($_POST["number_que"])){
                   if($_POST["sel"]=="0"){ 
-                      require('teacher_make_new.php');
+                      require('teacher_make_new.php');//文章問題
                     }
                  
                   if($_POST["sel"]=="1"){
-                      require('teacher_make_sel_new.php');
+                      require('teacher_make_sel_new.php');//選択問題
                     }
                   }
                 ?>
 
-
+                <!-- URLパラメータが送信されたとき、編集画面を呼び出す -->
                 <?php
                 if(isset($_GET["id_que"]) && !empty($_GET["id_que"])){
                     if($_GET["sel"]=="0"){
-                      require('teacher_make_edit.php');
+                      require('teacher_make_edit.php');//文章問題
                     }
                 
                        if($_GET["sel"]=="1"){
-                        require('teacher_make_sel_edit.php');
+                        require('teacher_make_sel_edit.php');//選択問題
                        }
                   }
                 ?>
 
+                <!-- 新規作成ボタン、URLパラメータが押されていないときは説明文を出力 -->
                 <?php if(empty($_POST["number_que"])&&empty($_GET["id_que"])){
                   echo '左上の問題タイプ選択ボタンと問題数を選択して、「新規作成」ボタンを押すか<br />';
                   echo '左のリストから問題を選んで、再編集してくさい。<br />';
