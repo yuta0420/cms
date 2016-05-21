@@ -40,19 +40,34 @@
  //データベースから切断
   $dbh = null;
 ?>
-
+              <div class="form_group">
                 <form method="post">
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
-                  <input name="question_title" type="text" style="width:80%" value="<?php echo htmlspecialchars($main['title_que']); ?>"><br />
+                  <input name="question_title" type="text" style="width:80%" class="form-control" value="<?php echo htmlspecialchars($main['title_que']); ?>"><br />
                   問題文を入力してください。（例：つぎの計算をしなさい）
                   <br />
-                  <input name="question_title_sub" type="text" style="width:80%" value="<?php echo htmlspecialchars($main['title_que_sub']); ?>"><br />
+                  <input name="question_title_sub" type="text" style="width:80%" class="form-control" value="<?php echo htmlspecialchars($main['title_que_sub']); ?>"><br />
                   <br />
 
+                  問題の科目（ジャンル）を選んでください
+                  <select class="form-control" name="subject_id" style="width:150px">
+                  <option value="0">科目を選択</option>
+                  <?php
+                      foreach($subjects as $subject){
+                    ?>
+                      <?php if($subject['subject_id']==$main['subject_id']){?>
+                        <option value="<?php echo $subject['subject_id']?>" selected><?php echo $subject['subject_name'];?></option>
+                      <?php } else{?>
+                      <option value="<?php echo $subject['subject_id']?>"><?php echo $subject['subject_name'];?></option>
+                      <?php }?>
+                  <?php  }   ?>
+                </select>
+                <p><a href='#' onClick="window.open('subject_add.php', 'child', 'width=500,height=400');">新しい科目を登録する</a></p><br />
+
                   問題の追加
-                  <input type="button" value="追加" onclick="insertRow_sen('make_table_edit',<?php echo $main["num_que"];?>)" /><br />
+                  <input type="button" value="追加" class="btn btn-default btn-xs" onclick="insertRow_sen('make_table_edit',<?php echo $main["num_que"];?>)" /><br />
                   <br />
 
                   小問題と答えを入力してください
@@ -66,14 +81,14 @@
                           //問題の作成
                           echo'<tr>';
                           echo'<td>';
-                          echo'<input type="button" value="削除" onclick="deleteRow(this)" />';
+                          echo'<input type="button" value="削除" class="btn btn-default btn-xs"onclick="deleteRow(this)" />';
                           echo'</td>';
                           echo'<td>問題';
                           echo($i+1);
                           echo'</td>'; 
                           echo'<td><input name="question';
                           echo$i;
-                          echo '" type="text" style="width:100px" value=';
+                          echo '" type="text"  class="form-control"style="width:100px" value=';
                           echo htmlspecialchars($question_each_edit['question']);
                           echo '></td>' ;
 
@@ -83,10 +98,10 @@
                           echo '&emsp;';
 
                           //答えの作成
-                          echo'<td>答え';
-                          echo'<input name="answer';
+                          echo'<td>答え</td>';
+                          echo'<td><input name="answer';
                           echo $i;
-                          echo '" type="text" style="width:100px" value=';
+                          echo '" type="text" style="width:100px" class="form-control" value=';
                           echo htmlspecialchars($question_each_edit['answer']); 
                           echo '></td>';
                           echo'</tr>';
@@ -116,8 +131,9 @@
 
                   <br />
                   <?php echo '<input name="sel_type" type="hidden" value="0">'; ?>
-                 <input type="submit" 
+                 <input type="submit" class="btn btn-success btn-s"
                  onclick="return confirm('※注意※\n未完成でも、「公開承認チェック」を押していると\n問題が公開されてしまいます。'); "
                  value="問題を更新する" >
                 </form>
+              </div>
                 

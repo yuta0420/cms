@@ -8,60 +8,61 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	$title_que=htmlspecialchars($q[0]["title_que"]);
 	$title_que_sub=htmlspecialchars($q[0]["title_que_sub"]);
 	?>
-	
-	<form method="post" name="form1">
+	<div class="form-group">
+		<form method="post" name="form1">
 
-	<!-- 経過時間の出力 -->
-	経過時間：<input type="text" name="time" size="8"><br />
-	<br />
+		<!-- 経過時間の出力 -->
+		経過時間：<input type="text" name="time" size="8"><br />
+		<br />
 
-	<!-- 問題のタイトルを出力 -->
-	<?php echo $title_que; ?>
-	<br />
-	<br />
-	<?php echo $title_que_sub; ?>
-	<br />
+		<!-- 問題のタイトルを出力 -->
+		<?php echo $title_que; ?>
+		<br />
+		<br />
+		<?php echo $title_que_sub; ?>
+		<br />
 
 
-	<!-- 問題の出力 -->
-	<table>
+		<!-- 問題の出力 -->
+		<table>
 
-	<?php
-	// $number=($question_each['num_que']);
+		<?php
+		// $number=($question_each['num_que']);
 
-	$i=0;
-	foreach ($qas as $qa_each)
-	{
-		//サニタイズ
-		$question=htmlspecialchars($qa_each['question']);
-		$answer=htmlspecialchars($qa_each['answer']);
+		$i=0;
+		foreach ($qas as $qa_each)
+		{
+			//サニタイズ
+			$question=htmlspecialchars($qa_each['question']);
+			$answer=htmlspecialchars($qa_each['answer']);
 
-		//答え合わせ用に再度、問題と答えをhiddenで送信
-		echo '<input type="hidden" name="question'.$i.'" value="'.$question.'">';
-		echo '<input type="hidden" name="answer'.$i.'" value="'.$answer.'">';
-		$i++;
+			//答え合わせ用に再度、問題と答えをhiddenで送信
+			echo '<input type="hidden" name="question'.$i.'" value="'.$question.'">';
+			echo '<input type="hidden" name="answer'.$i.'" value="'.$answer.'">';
+			$i++;
 
-		//問題表示
-		echo'<tr>';
-		echo'<td>問題';
-		echo$i; 
-		echo'</td>';
-		echo'<th>'.$question.'</th>';
-		echo'<th><input name="st_answer';
-		echo $i;
-		echo '" type="text" style="width:100px"></th>';
-		echo'</tr>';
-	}
-	?>
-	</table>
-	<br />
+			//問題表示
+			echo'<tr>';
+			echo'<td>問題';
+			echo$i; 
+			echo'</td>';
+			echo'<th>'.$question.'</th>';
+			echo'<th><input name="st_answer';
+			echo $i;
+			echo '" type="text" class="form-control" style="width:100px"></th>';
+			echo'</tr>';
+		}
+		?>
+		</table>
+		<br />
 
-	<!-- 答え合わせ用に問題数をhiddenで送信 -->
-	<?php echo '<input type="hidden" name="number0" value="'.$i.'">'; ?>
+		<!-- 答え合わせ用に問題数をhiddenで送信 -->
+		<?php echo '<input type="hidden" name="number0" value="'.$i.'">'; ?>
 
-	<!-- 回答が終わったら答え合わせ、確認メッセージを出力 -->
-	<input type="submit" onclick="return confirm('答え合わせをしますか？');"value="答えを確認する">
-	</form>
+		<!-- 回答が終わったら答え合わせ、確認メッセージを出力 -->
+		<input type="submit" class="btn btn-success btn-s" onclick="return confirm('答え合わせをしますか？');" value="答えを確認する">
+		</form>
+	</div>
 
 <?php } ?>
 

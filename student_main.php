@@ -11,8 +11,34 @@
   //DBへの接続
 	require('dbconnect.php');
 
+  // セレクトボックス用のSQLを作成
+    $sql='SELECT * FROM `subject`';
+
+    $stmt=$dbh->prepare($sql);
+    $stmt->execute();
+
+    //取得データの活用
+    $subjects = array();
+
+    //データを取得して格納
+    while(1){
+      $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+      if($rec==false){
+        break;
+      }
+      $subjects[]=$rec;
+    }
+
 	//問題リスト呼び出し用に問題メインテーブルからレコード取得
-	$sql = 'SELECT*FROM `main` WHERE`open_flag`=1 AND `delete_flag`=0';
+	if(isset($_POST['subject_search'])){
+    $sql = 'SELECT*FROM `main` WHERE `delete_flag`=0  AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
+  }
+  else if(isset($_POST['subject_search'])&&$_POST['subject_search']==0){
+    $sql = 'SELECT*FROM `main` WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+  }
+  else{
+    $sql = 'SELECT*FROM `main` WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+  }
 
 	//SQL文の実行
     $stmt=$dbh->prepare($sql);
@@ -162,6 +188,25 @@
       <div class="col-md-4 content-margin-top">
 
       		<!-- ここに4列分のコンテナの記述が可能 -->
+
+        <!-- 科目検索用 -->
+            <div class="form-group">
+              <form method='post'>
+                <select class="form-control" name="subject_search" style="width:150px">
+                  <option value="0">全件検索</option>
+                  <?php
+                      foreach($subjects as $subject){
+                    ?>
+
+                    <option value="<?php echo $subject['subject_id'];?>"><?php echo $subject['subject_name'];?></option>
+
+                  <?php  }  ?>
+                  
+                  </select>
+
+                  <input type="submit" class="btn btn-default btn-xs" value="科目検索">
+              </form>
+            </div>
        
         <div class="timeline-centered box_srcollbar">
 

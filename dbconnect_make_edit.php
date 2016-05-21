@@ -8,29 +8,23 @@
 <!-- ④更新前の問題数より問題数が多い場合は、INSERT処理で問題を追加 -->
 
 
-<!--　！！【実装】DELETE処理が走ったときに問題数を-1してアップデートをする -->
-
-
-
-<!-- ①更新された問題数の取得（実際は問題数ではなく、送信された問題番号のうち最も大きい番号を取得）-->
- <?php for($i=0;$i<50;$i++){//問題数の最大数50個までPOST送信されたデータがあるかを確認する
-    if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
-      $number_que_edit = $i+1;//問題が存在したとき、問題数として最新の番号に更新（問題数のため+1）
-    }
-  }
-  $number_true=$number_que_edit;//取得した問題数を格納
-  echo '問題数：';
-  echo $number_true;
-?>
-
  <?php
    //データの更新処理（更新ボタンを押したとき）
     if(isset($_POST['id_que_edit']) && !empty($_POST['id_que_edit'])){
       if($_POST['sel_type']=="0"){//問題タイプの確認
-      //②問題メインテーブルのUPDATE処理
-      $sql='UPDATE `main` SET `title_que`="'.$_POST['question_title'].'",`title_que_sub`="'.$_POST['question_title_sub'].'",`num_que`='.$number_que_edit.',`time_edit`=now() WHERE `id_que`='.$_POST['id_que_edit'];
 
-      var_dump($sql);
+        //①更新された問題数の取得（実際は問題数ではなく、送信された問題番号のうち最も大きい番号を取得）
+        for($i=0;$i<50;$i++){//問題数の最大数50個までPOST送信されたデータがあるかを確認する
+            if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
+              $number_que_edit = $i+1;//問題が存在したとき、問題数として最新の番号に更新（問題数のため+1）
+            }
+          }
+          $number_true=$number_que_edit;
+
+      //②問題メインテーブルのUPDATE処理
+      $sql='UPDATE `main` SET `title_que`="'.$_POST['question_title'].'",`title_que_sub`="'.$_POST['question_title_sub'].'",`num_que`='.$number_que_edit.', `subject_id`="'.$_POST['subject_id'].'", `time_edit`=now() WHERE `id_que`='.$_POST['id_que_edit'];
+
+      // var_dump($sql);
 
       $stmt =$dbh->prepare($sql);
       $stmt->execute();
@@ -51,7 +45,7 @@
         $number_true--;//問題が存在しない場合
       }
 
-        var_dump($sql);
+        // var_dump($sql);
         
         //SQL文の実行
          $stmt=$dbh->prepare($sql);
@@ -67,7 +61,7 @@
               //更新分のINSERT処理を実行
               $sql = sprintf('INSERT INTO `question`(`id_que`, `question`, `answer`,`time_made`) VALUES (\'%d\', \'%s\',\'%s\',now())',$_POST['id_que_edit'],$_POST['question'.$i],$_POST['answer'.$i]);
 
-               var_dump($sql);
+               // var_dump($sql);
 
                //SQL文の実行
              $stmt=$dbh->prepare($sql);
@@ -78,10 +72,10 @@
        }
        // 問題数を更新
       $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$_POST['id_que_edit']);
-        echo '問題数：';
-    echo $number_true;
+    //     echo '問題数：';
+    // echo $number_true;
 
-      var_dump($sql);
+    //   var_dump($sql);
       //SQL文の実行
            $stmt=$dbh->prepare($sql);
            $stmt->execute();

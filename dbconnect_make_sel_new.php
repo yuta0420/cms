@@ -5,22 +5,25 @@
 <!-- ③問題メインテーブルから最も新しい問題ID(MAX関数)を取得（selectionテーブルのサブID用） -->
 <!-- ④問題文と答えを'selection'テーブルにINSERT処理 -->
 
-<!-- ①送信された問題数の取得 -->
- <?php for($i=0;$i<50;$i++){
-    if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
-      $number_que_new = $i+1;
-    }
-  }
-  $number_true=$number_que_new;//取得した問題数を格納
-?>
+
 
  <?php
   //MySQLの問題メインファイルの更新
   if(isset($_POST['question_title_new']) && !empty($_POST['question_title_new'])){
     if($_POST['sel_type']=='1'){
 
+        //①送信された問題数の取得
+        for($i=0;$i<50;$i++){
+            if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
+              $number_que_new = $i+1;
+            }
+          }
+          $number_true=$number_que_new;//取得した問題数を格納
+
         //②問題メインテーブルのINSERT処理
-        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."',1 ,now())";
+        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`, `subject_id` ,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."',1 ,'".$_POST['subject_id']."', now())";
+
+
 
         //var_dump($_POST);
         //var_dump($sql_sav_main);
@@ -57,7 +60,7 @@
        // 問題数を更新
       $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$id_que['MAXID']);
 
-      var_dump($sql);
+      // var_dump($sql);
       //SQL文の実行
            $stmt=$dbh->prepare($sql);
            $stmt->execute();

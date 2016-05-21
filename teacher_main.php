@@ -36,10 +36,25 @@
   //ページに問題リストを呼び出す場合
   require('dbconnect_make_list.php');
 
-  //エラー判定用
-  // if(empty($_POST)){
-  //   $error['text']='blank';
-  // }
+  // セレクトボックス用のSQLを作成
+    $sql='SELECT * FROM `subject`';
+
+    $stmt=$dbh->prepare($sql);
+    $stmt->execute();
+
+    //取得データの活用
+    $subjects = array();
+
+    //データを取得して格納
+    while(1){
+      $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+      if($rec==false){
+        break;
+      }
+      $subjects[]=$rec;
+    }
+
+  
 
   //データベースから切断
 	$dbh = null;
@@ -118,12 +133,30 @@
 
               <!-- ③自分が作った問題の生徒側画面のデモページを表示 -->
 
-              <a href="teacher_demo.php">生徒用画面デモはこちら</a><br />
+              <a href="teacher_demo.php">生徒用画面デモはこちら</a><br /><br />
                   
               <!-- ④新規作成（初期問題数・タイプ選択）ボタンの作成 -->
               <?php
                   require('number_make_new.php');
-              ?>   
+              ?>
+
+
+              <!-- 科目検索用 -->
+              <form method='post'>
+                <select class="form-control" name="subject_search" style="width:150px">
+                  <option value="0">全件表示</option>
+                  <?php
+                      foreach($subjects as $subject){
+                    ?>
+
+                    <option value="<?php echo $subject['subject_id'];?>"><?php echo $subject['subject_name'];?></option>
+
+                  <?php  }  ?>
+                  
+                  </select>
+
+                  <input type="submit" class="btn btn-success btn-xs" value="科目検索">
+              </form>
 
               <!-- アイコン付き（問題リスト） -->
                <div class="timeline-centered box_srcollbar">       

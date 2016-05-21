@@ -1,15 +1,30 @@
+          <div class="form-group">
             <form method="post" action="teacher_main.php">
                   <!-- 問題のタイトルを入れる -->
                   問題のタイトルを入力してください。（例：1ケタ×1ケタのかけ算）
                   <br />
-                  <input name="question_title_new" type="text" style="width:500px"><br />
+                  <input name="question_title_new" type="text" class="form-control" style="width:500px"><br />
                   問題文を入力してください。（例：つぎの問題について答えを選択しなさい）
                   <br />
-                  <input name="question_title_sub" type="text" style="width:500px"><br />
+                  <input name="question_title_sub" type="text" class="form-control" style="width:500px"><br />
                   <br />
 
+                  問題の科目（ジャンル）を選んでください
+                  <select class="form-control" name="subject_id" style="width:150px">
+                  <option value="0">科目を選択</option>
+                  <?php
+                      foreach($subjects as $subject){
+                    ?>
+
+                    <option value="<?php echo $subject['subject_id'];?>"><?php echo $subject['subject_name'];?></option>
+
+                  <?php  }  ?>
+                  
+                  </select>
+                  <p><a href='#' onClick="window.open('subject_add.php', 'child', 'width=500,height=400');">新しい科目を登録する</a></p><br />
+
                   問題の追加
-                  <input type="button" value="追加" onclick="insertRow_sel('make_sel_table', <?php echo $_POST["number_que"];?>)" /><br />
+                  <input type="button" value="追加" class="btn btn-default btn-xs" onclick="insertRow_sel('make_sel_table', <?php echo $_POST["number_que"];?>)" /><br />
                   <br />
 
                   小問題と答えを入力してください
@@ -20,7 +35,7 @@
                       for ($i=0; $i < $_POST["number_que"]; $i++)
                       {
                           echo '<tr>';
-                          echo'<td><input type="button" value="削除" onclick="deleteRow(this)" /></td>';
+                          echo'<td><input type="button" value="削除" class="btn btn-default btn-xs" onclick="deleteRow(this)" /></td>';
                           
 
                           //問題の作成
@@ -32,7 +47,7 @@
                           echo'</td>'; 
                           echo'<td><input name="question';
                           echo$i;
-                          echo '" type="text" style="width:300px"></td>' ;
+                          echo '" type="text" class="form-control" style="width:300px"></td>' ;
                           echo'</tr>';
 
 
@@ -44,7 +59,7 @@
                         echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
-                        echo '_1" type="text" style="width:100px"></td>';
+                        echo '_1" type="text" class="form-control" style="width:100px"></td>';
                         echo'</tr>';
 
                         echo'<tr>';
@@ -52,7 +67,7 @@
                         echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
-                        echo '_2" type="text" style="width:100px"></td>';
+                        echo '_2" type="text" class="form-control" style="width:100px"></td>';
                         echo'</tr>';
 
                         echo'<tr>';
@@ -60,7 +75,7 @@
                         echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
-                        echo '_3" type="text" style="width:100px"></td>';
+                        echo '_3" type="text" class="form-control" style="width:100px"></td>';
                         echo'</tr>';
 
                         echo'<tr>';
@@ -68,7 +83,7 @@
                         echo '</td>';
                         echo'<td><input name="choose';
                         echo $i;
-                        echo '_4" type="text" style="width:100px"></td>';
+                        echo '_4" type="text" class="form-control" style="width:100px"></td>';
                         echo'</tr>';
 
                         
@@ -99,5 +114,6 @@
                       <?php echo '<input name="sel_type" type="hidden" value="1">'; ?>
                        
                       <br />
-                      <input type="submit"  onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。'); "value="問題を作成する" >
+                      <input type="submit"   class="btn btn-success btn-s" onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。'); "value="問題を作成する" >
                       </form>
+                    </div>

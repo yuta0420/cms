@@ -11,81 +11,83 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 	$title_que_sub=htmlspecialchars($q[0]["title_que_sub"]);
 	?>
 
-	<form method="post" name="form1">
-	
-	<!-- 経過時間の取得 -->
-	経過時間：<input type="text" name="time" size="8"><br />
-	<br />
-	
-	<!-- タイトルの取得 -->
-	<?php echo $title_que; ?>
-	<br />
-	<br />
-	<?php echo $title_que_sub; ?>
-	<br />
-	
-	<?php
-	// $number=($question_each['num_que']);
-
-	//問題の出力
-
-	//ループカウント用の変数を初期化
-	$i=0;
-	foreach ($qas as $qa_each)
-	{
-
-		//サニタイズ
-		$question=htmlspecialchars($qa_each['question']);
-		$choose1=htmlspecialchars($qa_each['choose1']);
-		$choose2=htmlspecialchars($qa_each['choose2']);
-		$choose3=htmlspecialchars($qa_each['choose3']);
-		$choose4=htmlspecialchars($qa_each['choose4']);
-
-		//答え合わせ用に問題と答えを再度hiddenで送信
-		echo '<input type="hidden" name="question'.$i.'" value="'.$qa_each['question'].'">';
-		echo '<input type="hidden" name="answer'.$i.'" value="'.$qa_each['answer'].'">';
-		$i++;//カウントアップ
-
-		echo '問題'.$i;
-		echo '<br />';
-		echo$question;
-		echo '<br />';
-
+	<div class="form_group">
+		<form method="post" name="form1">
 		
-
-		echo'<input name="st_answer';
-		echo $i;
-		echo '" type="radio" value="1">'.$choose1;
-		echo '&nbsp';
-
-
-		echo'<input name="st_answer';
-		echo $i;
-		echo '" type="radio" value="2">'.$choose2;
-		echo '&nbsp';
-
-
-		echo'<input name="st_answer';
-		echo $i;
-		echo '" type="radio" value="3">'.$choose3;
-		echo '&nbsp';
-
-
-		echo'<input name="st_answer';
-		echo $i;
-		echo '" type="radio" value="4">'.$choose4;
-		echo '&nbsp';
-
-		echo'<br />';
-		echo'<br />';
+		<!-- 経過時間の取得 -->
+		経過時間：<input type="text" name="time" size="8"><br />
+		<br />
 		
+		<!-- タイトルの取得 -->
+		<?php echo $title_que; ?>
+		<br />
+		<br />
+		<?php echo $title_que_sub; ?>
+		<br />
 		
-	}
-	?>
-	<br />
-	<?php echo '<input type="hidden" name="number1" value="'.$i.'">'; ?>
-	<input type="submit" onclick="return confirm('答え合わせをしますか？');"　value="答えを確認する">
-	</form>
+		<?php
+		// $number=($question_each['num_que']);
+
+		//問題の出力
+
+		//ループカウント用の変数を初期化
+		$i=0;
+		foreach ($qas as $qa_each)
+		{
+
+			//サニタイズ
+			$question=htmlspecialchars($qa_each['question']);
+			$choose1=htmlspecialchars($qa_each['choose1']);
+			$choose2=htmlspecialchars($qa_each['choose2']);
+			$choose3=htmlspecialchars($qa_each['choose3']);
+			$choose4=htmlspecialchars($qa_each['choose4']);
+
+			//答え合わせ用に問題と答えを再度hiddenで送信
+			echo '<input type="hidden" name="question'.$i.'" value="'.$qa_each['question'].'">';
+			echo '<input type="hidden" name="answer'.$i.'" value="'.$qa_each['answer'].'">';
+			$i++;//カウントアップ
+
+			echo '問題'.$i;
+			echo '<br />';
+			echo$question;
+			echo '<br />';
+
+			
+
+			echo'<input name="st_answer';
+			echo $i;
+			echo '" type="radio" value="1">'.$choose1;
+			echo '&nbsp';
+
+
+			echo'<input name="st_answer';
+			echo $i;
+			echo '" type="radio" value="2">'.$choose2;
+			echo '&nbsp';
+
+
+			echo'<input name="st_answer';
+			echo $i;
+			echo '" type="radio" value="3">'.$choose3;
+			echo '&nbsp';
+
+
+			echo'<input name="st_answer';
+			echo $i;
+			echo '" type="radio" value="4">'.$choose4;
+			echo '&nbsp';
+
+			echo'<br />';
+			echo'<br />';
+			
+			
+		}
+		?>
+		<br />
+		<?php echo '<input type="hidden" name="number1" value="'.$i.'">'; ?>
+		<input type="submit" class="btn btn-success btn-s" value="答えを確認する" onclick="return confirm('答え合わせをしますか？');"　>
+		</form>
+	</div>
 
 <?php } ?>
 

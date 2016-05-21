@@ -4,34 +4,24 @@
 <!-- ②問題メインテーブルのINSERT処理 -->
 <!-- ③問題メインテーブルから最も新しい問題ID(MAX関数)を取得（questionテーブルのサブID用） -->
 <!-- ④問題文と答えを'question'テーブルにINSERT処理 -->
-
-<!--　！！【実装】問題が存在しない場合に問題数を-1してアップデートをする -->
-
-
-
-<!-- ①送信された問題数の取得-->
-<?php for($i=0;$i<50;$i++){
-    if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
-      $number_que_new = $i+1;
-    }
-  }
-  $number_true=$number_que_new;//取得した問題数を格納
-
-  echo '問題数：';
-  echo $number_true;
-?>
-  
+ 
 
  <?php
   //②問題メインテーブルのINSERT処理
   if(isset($_POST['question_title_new']) && !empty($_POST['question_title_new'])){
     if($_POST['sel_type']=='0'){
 
-        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."',0 ,now())";
+      //①送信された問題数の取得
+      for($i=0;$i<50;$i++){
+          if(isset($_POST['question'.$i])||isset($_POST['answer'.$i])){
+            $number_que_new = $i+1;
+          }
+        }
+        $number_true=$number_que_new;
 
-        var_dump($_POST);
+        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`, `subject_id`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."', 0 , '".$_POST['subject_id']."',now())";
 
-        
+                
         //SQL文の実行
         $stmt=$dbh->prepare($sql_sav_main);
         $stmt->execute();
@@ -51,7 +41,7 @@
           if(isset($_POST['question'.$i])){
                      $sql = sprintf('INSERT INTO `question`(`id_que`, `question`, `answer`,`time_made`) VALUES (\'%d\', \'%s\',\'%s\',now())',$id_que['MAXID'],$_POST['question'.$i],$_POST['answer'.$i]);
 
-          var_dump($sql);
+          // var_dump($sql);
 
          //SQL文の実行
            $stmt=$dbh->prepare($sql);
@@ -60,13 +50,13 @@
          else $number_true--;//問題が存在しない場合
       }
 
-      echo '問題数：';
-      echo $number_true;
+      // echo '問題数：';
+      // echo $number_true;
 
       // 問題数を更新
       $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$id_que['MAXID']);
 
-      var_dump($sql);
+      // var_dump($sql);
       //SQL文の実行
            $stmt=$dbh->prepare($sql);
            $stmt->execute();
