@@ -1,9 +1,73 @@
+<!-- 生徒用ページのメイン画面 -->
+<!-- ①MYSQLへの接続DB呼び出し -->
+<!-- ②画面左側に問題リストの呼び出し -->
+<!-- ③選択された問題と回答欄を呼び出す（答えの出力含む） -->
+
+
+
+<!-- ①MYSQLへの接続DB呼び出し -->
 <?php
 
+  //DBへの接続
   require('dbconnect.php');
 
-  //問題タイトルの取得
-  $sql = 'SELECT*FROM `main` WHERE`open_flag`=1 AND `delete_flag`=0';
+  //セッションを使うページに必ず入れる
+  session_start();
+
+  //セッションにidが存在し、かつセッションのtimeと3600秒足した値が
+  //現在時刻より小さいときにログインをしていると判断する
+  if(isset($_SESSION['id'])&&$_SESSION['time']+3600>time()){
+    //セッションに保存している期間更新
+    $_SESSION['time']=time();
+
+    //ログインしているユーザーのデータをDBから取得
+    $sql=sprintf('SELECT * FROM `teachers` WHERE `teacher_id`=%d',
+      $_SESSION['id']
+      );
+
+    $stmt=$dbh->prepare($sql);
+    $stmt->execute();
+
+    $record=$stmt->fetch(PDO::FETCH_ASSOC);
+    $teacher=$record;
+
+
+  }else{
+    //ログインしていない場合の処理
+    header('Location: login.php');
+    exit();
+  }
+
+
+  // セレクトボックス用のSQLを作成
+    $sql='SELECT * FROM `subject`';
+
+    $stmt=$dbh->prepare($sql);
+    $stmt->execute();
+
+    //取得データの活用
+    $subjects = array();
+
+    //データを取得して格納
+    while(1){
+      $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+      if($rec==false){
+        break;
+      }
+      $subjects[]=$rec;
+    }
+
+  //問題リスト呼び出し用に問題メインテーブルからレコード取得
+  if(isset($_POST['subject_search'])){
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0 AND main.id_teach='.$_SESSION['id'].' AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
+  }
+  else if(isset($_POST['subject_search'])&&$_POST['subject_search']==0){
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0 AND main.id_teach='.$_SESSION['id'].' ORDER BY `time_made` DESC';
+  }
+  else{
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id
+    WHERE `delete_flag`=0 AND main.id_teach='.$_SESSION['id'].'  ORDER BY `time_made` DESC';
+  }
 
   //SQL文の実行
     $stmt=$dbh->prepare($sql);
@@ -11,6 +75,9 @@
 
     //格納する変数の初期化
   $questions = array();
+
+
+  
 
   while(1){
     //実行結果として得られたデータを取得
@@ -21,10 +88,17 @@
     // 取得したデータを配列に格納しておく
     $questions[] = $rec;
   }
+
+
+
     
 
+    //GET送信でIDを取得したとき、問題を呼び出せるようにメイン、'question'、'selection'にSQL文を送る
+
+    //格納用変数の初期化
     $q = array();
-    if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
+
+    if(isset($_GET['id_que']) && !empty($_GET['id_que'])){//GET送信でIDが送られたとき
         //対象IDのデータ取得
         $sql = 'SELECT*FROM `main` WHERE `id_que`='.$_GET['id_que'];
 
@@ -32,11 +106,14 @@
         $stmt=$dbh->prepare($sql);
         $stmt->execute();
 
-        
+        //取得したデータの格納
         $rec=$stmt->fetch(PDO::FETCH_ASSOC);
         $q[] = $rec;
 
-        if($q[0]['sel_type']==0){
+
+        //取得したデータから問題タイプを判定して問題を出力
+        if($q[0]['sel_type']==0){//文章問題
+
           //対象IDの問題と答えの取得(問題タイプごと)
           $sql = 'SELECT*FROM `question` WHERE `id_que`='.$_GET['id_que'];
 
@@ -59,6 +136,7 @@
         //格納する変数の初期化
       $qas = array();
 
+      //データがfalseになるまで問題を取得
       while(1){
         //データを取得
         $rec=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -81,11 +159,14 @@
 <head>
   <meta charset="UTF-8">
   <?php
-    $string='先生用デモ';
+    $string='【デモ画面】Question BBS';
     echo'<title>';
     echo$string;
     echo'</title>';
   ?>
+
+  <!-- 問題回答時間取得用の関数 -->
+  <?php require('time_get.php');?>
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/bootstrap.css">
@@ -93,8 +174,11 @@
   <link rel="stylesheet" href="assets/css/form.css">
   <link rel="stylesheet" href="assets/css/timeline.css">
   <link rel="stylesheet" href="assets/css/main.css">
+
+ 
+
 </head>
-<body>
+<body onLoad="disp()">
 
   <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -132,13 +216,32 @@
 
 
 
- 
+ <!-- ②画面左側に問題リストの呼び出し -->
 
   <div class="container">
     <div class="row">
       <div class="col-md-4 content-margin-top">
 
           <!-- ここに4列分のコンテナの記述が可能 -->
+
+        <!-- 科目検索用 -->
+            <div class="form-group">
+              <form method='post'>
+                <select class="form-control" name="subject_search" style="width:150px">
+                  <option value="0">全件検索</option>
+                  <?php
+                      foreach($subjects as $subject){
+                    ?>
+
+                    <option value="<?php echo $subject['subject_id'];?>"><?php echo $subject['subject_name'];?></option>
+
+                  <?php  }  ?>
+                  
+                  </select>
+
+                  <input type="submit" class="btn btn-default btn-xs" value="科目検索">
+              </form>
+            </div>
        
         <div class="timeline-centered box_srcollbar">
 
@@ -161,10 +264,11 @@
                             
                           <?php
 
-                          //サニタイズ
                           $title_que=htmlspecialchars($question_each['title_que']);
                           //問題タイトルの出力
-                          echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$title_que.'</a></h2>';
+                          echo '<h2><a href="teacher_demo.php?id_que='.$question_each['id_que'].'">'.$title_que.'</a></h2>';
+
+                          echo '<h5>作成者：'.$question_each['nick_name'].'</5>';
                           
                           // リストに最終更新日時を出力
                           if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';
@@ -196,13 +300,12 @@
         </article>
 
       </div> 
-
-
-
-       
-
-       
+  
       </div>
+
+
+
+      <!-- ③選択された問題と回答欄を呼び出す（答えの出力含む） -->
 
       <div class="col-md-8 content-margin-top">
 
@@ -223,11 +326,17 @@
 
                 <!-- 回答・答え合わせページの呼び出し -->
                 <?php
+                //文章問題の呼び出し
                   if(isset($_GET['id_que'])&&($q[0]['sel_type']=='0')){
                    require("student_qa.php");
                   }
-                  if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
+                  //選択問題の呼び出し
+                  else if(isset($_GET['id_que'])&&$q[0]['sel_type']==1){
                    require("student_sel_qa.php");
+                  }
+                  //それ以外の場合は説明文を出力
+                  else{
+                    echo '<h2>左のリストから問題を選択してください<h2>';
                   }
                 ?>
                 

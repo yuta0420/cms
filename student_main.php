@@ -31,13 +31,14 @@
 
 	//問題リスト呼び出し用に問題メインテーブルからレコード取得
 	if(isset($_POST['subject_search'])){
-    $sql = 'SELECT*FROM `main` WHERE `delete_flag`=0  AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0  AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
   }
   else if(isset($_POST['subject_search'])&&$_POST['subject_search']==0){
-    $sql = 'SELECT*FROM `main` WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
   }
   else{
-    $sql = 'SELECT*FROM `main` WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id
+    WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
   }
 
 	//SQL文の実行
@@ -46,6 +47,9 @@
 
     //格納する変数の初期化
 	$questions = array();
+
+
+  
 
 	while(1){
     //実行結果として得られたデータを取得
@@ -56,6 +60,9 @@
     // 取得したデータを配列に格納しておく
     $questions[] = $rec;
   }
+
+
+
     
 
     //GET送信でIDを取得したとき、問題を呼び出せるようにメイン、'question'、'selection'にSQL文を送る
@@ -124,7 +131,7 @@
 <head>
   <meta charset="UTF-8">
   <?php
-		$string='生徒用ページ';
+		$string='Question BBS';
 		echo'<title>';
 		echo$string;
 		echo'</title>';
@@ -232,6 +239,8 @@
                           $title_que=htmlspecialchars($question_each['title_que']);
                           //問題タイトルの出力
                         	echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$title_que.'</a></h2>';
+
+                          echo '<h5>作成者：'.$question_each['nick_name'].'</5>';
                           
                           // リストに最終更新日時を出力
                           if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';

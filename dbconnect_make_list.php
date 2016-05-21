@@ -4,13 +4,13 @@
 <?php
 //問題メインテーブルの呼び出し（deleteフラグの立っていないものを取得）
 	 if(isset($_POST['subject_search'])){
-    $sql_list = 'SELECT*FROM `main` WHERE `delete_flag`=0  AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
+    $sql_list = 'SELECT*FROM `main` WHERE `delete_flag`=0  AND `subject_id`='.$_POST['subject_search'].' AND `id_teach`='.$_SESSION['id'].'ORDER BY `time_made` DESC';
   }
   else if(isset($_POST['subject_search'])&&$_POST['subject_search']==0){
-    $sql_list = 'SELECT*FROM `main` WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+    $sql_list = 'SELECT*FROM `main` WHERE `delete_flag`=0  AND `id_teach`='.$_SESSION['id'].' ORDER BY `time_made` DESC';
   }
   else{
-    $sql_list = 'SELECT*FROM `main` WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+    $sql_list = 'SELECT*FROM `main` WHERE `delete_flag`=0  AND `id_teach`='.$_SESSION['id'].' ORDER BY `time_made` DESC';
   }
 
 

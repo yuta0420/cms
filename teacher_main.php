@@ -9,11 +9,41 @@
 
 
 
-<!-- ①DB接続とDB更新用のファイル呼び出し -->
+
 <?php
 
   //DB接続関数の呼び出し
   require('dbconnect.php');
+
+  //セッションを使うページに必ず入れる
+  session_start();
+
+  //セッションにidが存在し、かつセッションのtimeと3600秒足した値が
+  //現在時刻より小さいときにログインをしていると判断する
+  if(isset($_SESSION['id'])&&$_SESSION['time']+3600>time()){
+    //セッションに保存している期間更新
+    $_SESSION['time']=time();
+
+    //ログインしているユーザーのデータをDBから取得
+    $sql=sprintf('SELECT * FROM `teachers` WHERE `teacher_id`=%d',
+      $_SESSION['id']
+      );
+
+    $stmt=$dbh->prepare($sql);
+    $stmt->execute();
+
+    $record=$stmt->fetch(PDO::FETCH_ASSOC);
+    $teacher=$record;
+
+
+  }else{
+    //ログインしていない場合の処理
+    header('Location: login.php');
+    exit();
+  }
+
+  //①DB接続とDB更新用のファイル呼び出し
+
 
   //テーブルのレコードを削除する場合
   require('dbconnect_delete.php');
@@ -97,6 +127,15 @@
               </button>
               <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
           </div>
+
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li><?php echo $teacher['nick_name']?>さん専用ページ</li>
+                <li><a href="logout.php">ログアウト</a></li>
+                <li><a href="user_edit.php">会員情報変更</a></li>
+              </ul>
+          </div>
+
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
