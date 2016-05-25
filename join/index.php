@@ -134,7 +134,8 @@
         <form method="post" action="" class="form-horizontal" role="form" enctype="multipart/form-data">
           <!-- ニックネーム -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">ニックネーム</label>
+          <p class="error">*は必須入力です。</p><br>
+            <label class="col-sm-4 control-label">ニックネーム<p class="error">*</p></label>
             <div class="col-sm-8">
             <?php if(isset($_POST['nick_name'])):?>
               <input type="text" name="nick_name" class="form-control" placeholder="例： Seed kun" value="<?php echo htmlspecialchars($_POST['nick_name'],ENT_QUOTES,'UTF-8'); ?>">
@@ -148,7 +149,7 @@
           </div>
           <!-- メールアドレス -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">メールアドレス</label>
+            <label class="col-sm-4 control-label">メールアドレス<p class="error">*</p></label>
             <div class="col-sm-8">
               <?php if(isset($_POST['email'])):?>
               <input type="text" name="email" class="form-control" placeholder="例： seedkun@nexseed.com" value="<?php echo htmlspecialchars($_POST['email'],ENT_QUOTES,'UTF-8'); ?>">
@@ -166,7 +167,7 @@
 
           <!-- パスワード -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">パスワード</label>
+            <label class="col-sm-4 control-label">パスワード<p class="error">*</p></label>
             <div class="col-sm-8">
               <?php if(isset($_POST['password'])):?>
               <input type="password" name="password" class="form-control" size="10" maxlength="20" value="<?php echo htmlspecialchars($_POST['password'],ENT_QUOTES,'UTF-8'); ?>">

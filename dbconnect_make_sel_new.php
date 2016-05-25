@@ -21,7 +21,7 @@
           $number_true=$number_que_new;//取得した問題数を格納
 
         //②問題メインテーブルのINSERT処理
-        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`, `subject_id` ,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."',1 ,'".$_POST['subject_id']."', now())";
+        $sql_sav_main = "INSERT INTO `main`(`title_que`, `title_que_sub`, `num_que`, `sel_type`, `subject_id` ,`id_teach`,`time_made`) VALUES ('".$_POST['question_title_new']."','".$_POST['question_title_sub']."','".$number_que_new."',1 ,'".$_POST['subject_id']."','".$_SESSION['id']."', now())";
 
 
 

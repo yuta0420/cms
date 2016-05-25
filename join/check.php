@@ -11,7 +11,6 @@
   //   exit();
   // }
 
-  var_dump($_SESSION);
 
   //セッションの削除の仕方
   // $_SESSION = Array();//空の配列を上書き
@@ -47,7 +46,7 @@
       mysqli_real_escape_string($db,$_SESSION['join']['picture'])
       );
 
-    echo $sql;
+
 
     //②sql文を実行する
     mysqli_query($db, $sql)or 

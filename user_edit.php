@@ -5,6 +5,8 @@
  //セッションを使うページに必ず入れる
   session_start();
 
+  
+
   //ログイン判定
   if(isset($_SESSION['id'])&&$_SESSION['time']+3600>time()){
     //セッションに保存している期間更新
@@ -38,6 +40,12 @@
     }
     if($_POST['password']==''){
       $error['password']='blank';
+    }
+    if($_POST['new_password']==''){
+      $error['new_password']='blank';
+    }
+    if($_POST['confirm_password']==''){
+      $error['confirm_password']='blank';
     }
     //DBに登録されているパスワードと入力されたパスワードが一致するかどうか
     else if(sha1($_POST['password'])!=$member['password']){
@@ -93,14 +101,16 @@
         mysqli_real_escape_string($db,$_POST['nick_name']),
         mysqli_real_escape_string($db,$_POST['email']),
         mysqli_real_escape_string($db,sha1($_POST['new_password'])),
-        mysqli_real_escape_string($db,$member['self']),
-        mysqli_real_escape_string($db,$member['link']),
+        mysqli_real_escape_string($db,$_POST['self']),
+        mysqli_real_escape_string($db,$_POST['link']),
         mysqli_real_escape_string($db,$picture),
         mysqli_real_escape_string($db,$member['teacher_id'])
         );
 
-       // var_dump($sql);
+      echo $sql;
       mysqli_query($db, $sql) or die (mysqli_error($db));
+
+      header('Location: thanks.php');
 
     }
 
@@ -143,7 +153,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>SeedSNS</title>
+    <title>Question BBS</title>
 
     <!-- Bootstrap -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -174,7 +184,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="index.php"><span class="strong-title"><i class="fa fa-twitter-square"></i> Seed SNS</span></a>
+              <a class="navbar-brand" href="teacher_main.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question BBS</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -193,7 +203,8 @@
         <form method="post" action="" class="form-horizontal" role="form" enctype="multipart/form-data">
           <!-- ニックネーム -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">ニックネーム</label>
+          <p class="error">*は必須入力です。</p><br>
+            <label class="col-sm-4 control-label">ニックネーム<p class="error">*</p></label>
             <div class="col-sm-8">
             <?php if(isset($_POST['nick_name'])):?>
               <input type="text" name="nick_name" class="form-control" placeholder="例： Seed kun" value="<?php echo h($_POST['nick_name']); ?>">
@@ -207,8 +218,7 @@
           </div>
           <!-- メールアドレス -->
           <div class="form-group">
-            <label class="col-sm-4 control
-            -label">メールアドレス</label>
+            <label class="col-sm-4 control-label">メールアドレス<p class="error">*</p></label>
             <div class="col-sm-8">
               <?php if(isset($_POST['email'])):?>
               <input type="text" name="email" class="form-control" placeholder="例： seedkun@nexseed.com" value="<?php echo h($_POST['email']); ?>">
@@ -226,7 +236,7 @@
 
           <!-- パスワード -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">現在のパスワード</label>
+            <label class="col-sm-4 control-label">現在のパスワード<p class="error">*</p></label>
             <div class="col-sm-8">
               
               <input type="password" name="password" class="form_control" size="10" maxlength="20" class="form-control" >
@@ -243,13 +253,16 @@
 
           <!-- 新規パスワード -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">新しいパスワード</label>
+            <label class="col-sm-4 control-label">新しいパスワード<p class="error">*</p></label>
             <div class="col-sm-8">
               
               <input type="password" name="new_password" class="form_control" size="10" maxlength="20" class="form-control" >
 
               <?php if( isset($error['new_password']) && $error['new_password']=='incorrect'): ?>
                 <p class="error">*確認用パスワードと一致しません。</p>
+              <?php endif; ?>
+              <?php if(isset($error['new_password']) && $error['new_password']=='blank'): ?>
+                <p class="error">*パスワードを入力してください。</p>
               <?php endif; ?>
               <?php if(isset($error['new_password'])&&$error['new_password']=='length'): ?>
                   <p class="error">*パスワードは4文字以上で入力してください。</p>
@@ -259,7 +272,7 @@
 
           <!-- 確認用パスワード -->
           <div class="form-group">
-            <label class="col-sm-4 control-label">新しいパスワード(確認用)</label>
+            <label class="col-sm-4 control-label">新しいパスワード(確認用)<p class="error">*</p></label>
             <div class="col-sm-8">
               
               <input type="password" name="confirm_password" class="form_control" size="10" maxlength="20" class="form-control" >
@@ -272,7 +285,7 @@
             <label class="col-sm-4 control-label">自己紹介文</label>
             <div class="col-sm-8">
             <?php if(isset($member['self'])):?>
-              <textarea name="self" cols="50" rows="5" class="form-control" placeholder="あいさつ、経歴、得意分野、アピールなど"><?php echo h($member['self']);?></textarea>
+              <textarea name="self" cols="50" rows="5" class="form-control" placeholder="あいさつ、経歴、得意分野、アピールなど"><?php echo nl2br(h($member['self']));?></textarea>
             <?php else: ?>
               <textarea name="self" cols="50" rows="5" class="form-control" placeholder="あいさつ、経歴、得意分野、アピールなど"></textarea>
             <?php endif; ?>
@@ -310,12 +323,10 @@
               <?php endif; ?>
             </div>
           </div>
-
-
-           
-
           <input type="submit" class="btn btn-default" value="確認画面へ">
         </form>
+
+      <a href="teacher_main.php">戻る</a>
       </div>
     </div>
   </div>

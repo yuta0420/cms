@@ -59,14 +59,14 @@
 
   //問題リスト呼び出し用に問題メインテーブルからレコード取得
   if(isset($_POST['subject_search'])){
-    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0 AND main.id_teach='.$_SESSION['id'].' AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0 AND `open_flag`=1 AND main.id_teach='.$_SESSION['id'].' AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
   }
   else if(isset($_POST['subject_search'])&&$_POST['subject_search']==0){
-    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0 AND main.id_teach='.$_SESSION['id'].' ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0 AND `open_flag`=1 AND main.id_teach='.$_SESSION['id'].' ORDER BY `time_made` DESC';
   }
   else{
     $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id
-    WHERE `delete_flag`=0 AND main.id_teach='.$_SESSION['id'].'  ORDER BY `time_made` DESC';
+    WHERE `delete_flag`=0 AND `open_flag`=1 AND main.id_teach='.$_SESSION['id'].'  ORDER BY `time_made` DESC';
   }
 
   //SQL文の実行
@@ -190,23 +190,14 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
+              <a class="navbar-brand" href="index.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-<!--                   <li class="hidden">
-                      <a href="#page-top"></a>
-                  </li>
-                  <li class="page-scroll">
-                      <a href="#portfolio">Portfolio</a>
-                  </li>
-                  <li class="page-scroll">
-                      <a href="#about">About</a>
-                  </li>
-                  <li class="page-scroll">
-                      <a href="#contact">Contact</a>
-                  </li> -->
+                <li><?php echo $teacher['nick_name']?>さん専用ページ</li>
+                <li><a href="logout.php">ログアウト</a></li>
+                <li><a href="user_edit.php">会員情報変更</a></li>
               </ul>
           </div>
           <!-- /.navbar-collapse -->
@@ -222,7 +213,9 @@
     <div class="row">
       <div class="col-md-4 content-margin-top">
 
-          <!-- ここに4列分のコンテナの記述が可能 -->
+        <!-- ここに4列分のコンテナの記述が可能 -->
+
+        <a href="teacher_main.php">前のページに戻る</a>
 
         <!-- 科目検索用 -->
             <div class="form-group">

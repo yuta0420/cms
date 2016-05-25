@@ -16,11 +16,14 @@ if(isset($_COOKIE['email'])&&$_COOKIE['email']!=''){
 if(!empty($_POST)){
 	//ログインの処理
 
+
+  
+
 	//二つのフォームに値が入力されていれば読まれる
 	if($_POST['email']!='' && $_POST['password']!=''){
 
 		//emailとパスワードが入力された値と一致するデータをSELECT文で取得
-		$sql = sprintf('SELECT * FROM teachers WHERE email="%s" AND password="%s"',
+		$sql = sprintf('SELECT * FROM `teachers` WHERE `email`="%s" AND `password`="%s"',
 			mysqli_real_escape_string($db, $_POST['email']),
 			mysqli_real_escape_string($db, sha1($_POST['password'])));
 		$record = mysqli_query($db, $sql) or die (mysqli_error($db));

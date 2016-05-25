@@ -96,7 +96,7 @@
 <head>
   <meta charset="UTF-8">
   <?php
-		$string='先生用ページ';
+		$string='Question BBS';
 		echo'<title>';
 		echo$string;
 		echo'</title>';
@@ -125,13 +125,13 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
+              <a class="navbar-brand" href="index.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 <li><?php echo $teacher['nick_name']?>さん専用ページ</li>
-                <li><a href="logout.php">ログアウト</a></li>
+                <li><a href="logout.php" onclick="return confirm('ログアウトしますか？'); ">ログアウト</a></li>
                 <li><a href="user_edit.php">会員情報変更</a></li>
               </ul>
           </div>

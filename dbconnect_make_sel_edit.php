@@ -9,6 +9,11 @@
 
 
  <?php
+
+  // echo '<br /><br /><br />';
+  // var_dump($_POST);
+
+
    //データの更新処理（更新ボタンを押したとき）
     if(isset($_POST['id_que_edit']) && !empty($_POST['id_que_edit'])){
       if($_POST['sel_type']=="1"){//問題タイプの確認
@@ -20,6 +25,9 @@
             }
           }
           $number_true=$number_que_edit;//取得した問題数を格納
+
+          // echo '更新前の問題数：'.$_POST['num_que_edit'];
+          // echo '問題数：'.$number_que_edit;
 
       //②問題メインテーブルのUPDATE処理 
       $sql='UPDATE `main` SET `title_que`="'.$_POST['question_title'].'",`title_que_sub`="'.$_POST['question_title_sub'].'",`num_que`='.$number_que_edit.', `subject_id`="'.$_POST['subject_id'].'", `time_edit`=now() WHERE `id_que`='.$_POST['id_que_edit'];
@@ -35,14 +43,17 @@
        {
         if(isset($_POST['question'.$i])){
         //③-1 送信された問題をUPDATE処理で実行
-        $sql = 'UPDATE `selection` SET `question`="'.$_POST['question'.$i].'",`choose1`='.$_POST['choose'.$i.'_1'].',`choose2`='.$_POST['choose'.$i.'_2'].',`choose3`='.$_POST['choose'.$i.'_3'].',`choose4`='.$_POST['choose'.$i.'_4'].',`answer`="'.$_POST['ans'.$i].'",`time_edit`=now() WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
-      }if(!isset($_POST['question'.$i])){
+        $sql = 'UPDATE `selection` SET `question`="'.$_POST['question'.$i].'",`choose1`="'.$_POST['choose'.$i.'_1'].'",`choose2`="'.$_POST['choose'.$i.'_2'].'",`choose3`="'.$_POST['choose'.$i.'_3'].'",`choose4`="'.$_POST['choose'.$i.'_4'].'",`answer`="'.$_POST['ans'.$i].'",`time_edit`=now() WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
+      }else {
+      if(isset($_POST['id_sub_edit'.$i])){
         //③-2 削除されて送信されていない場合は、DELETE処理を実行
         $sql='DELETE FROM `selection` WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
+      }
         $number_true--;//問題が存在しない場合
       }
 
-        //var_dump($sql);
+        // echo '<br /><br /><br />';
+        // echo $sql;
         
         //SQL文の実行
          $stmt=$dbh->prepare($sql);
@@ -66,6 +77,8 @@
            else $number_true--;//問題が存在しない場合
          }
         }
+
+        // echo '最終取得問題数：'.$number_true;
         // 問題数を更新
       $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$_POST['id_que_edit']);
     //     echo '問題数：';

@@ -150,7 +150,7 @@
 
                       // 答えの番号の選択 
                         echo '<h2>答えの番号を選択してください</h2>';
-                        echo '<select name="ans'.$i.' class="form-control"">';
+                        echo '<select name="ans'.$i.'">';
 
                         if($question_each_edit['answer']=="1"){echo '<option value="1" selected>1</option>';}
                         else {echo '<option value="1">1</option>';}

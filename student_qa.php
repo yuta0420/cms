@@ -61,7 +61,11 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 
 		<!-- 回答が終わったら答え合わせ、確認メッセージを出力 -->
 		<input type="submit" class="btn btn-success btn-s" onclick="return confirm('答え合わせをしますか？');" value="答えを確認する">
+		<br />
+		<br />
+		<a href="student_main.php">戻る</a>
 		</form>
+
 	</div>
 
 <?php } ?>
@@ -85,34 +89,37 @@ if(isset($_POST['number0']) && !empty($_POST['number0'])){
 	echo $_POST['time'];
 	echo '<br />';
 
-	//回乙内容と正誤判定
+	//回答内容と正誤判定
 	for($i=0; $i<$_POST['number0']; $i++)
 	{
 		//サニタイズ
 		$st_answer=htmlspecialchars($_POST['st_answer'.($i+1)]);
-
 		echo'<tr>';
+
+		echo'<td>';
+		//答えの判定（文字列の長さと内容が一致した場合は正解）
+		if(!empty($st_answer)){
+			if((strpos($_POST['answer'.$i],$st_answer) !== false)&&(strlen($_POST['answer'.$i])==strlen($st_answer)))echo '<i class="fa fa-circle-o" aria-hidden="true"></i>';
+			else echo '<i class="fa fa-check" aria-hidden="true"></i>';
+		}
+		else echo '<i class="fa fa-check" aria-hidden="true"></i>';
+		echo'</td>';
+
+		
 		echo'<td>問題';
 		echo$i+1; 
 		echo'</td>';
-		echo'<th>'.$_POST['question'.$i].'</th>';
-		echo'<th>あなたの答え：';
+		echo'<td>'.$_POST['question'.$i].'</td>';
+		echo'<td>あなたの答え：';
 		echo $st_answer;
-		echo '</th>';
-		echo '<th>';
-		echo '&nbsp';
-
-		//答えの判定（文字列の長さと内容が一致した場合は正解）
-		if(!empty($st_answer)){
-			if((strpos($_POST['answer'.$i],$st_answer) !== false)&&(strlen($_POST['answer'.$i])==strlen($st_answer)))echo '正解';
-			else echo '不正解';
-		}
-		else echo '不正解';
-		echo '&nbsp';
+		echo '</td>';
+		echo '<td>';
 		echo '答え；';
 		echo $_POST['answer'.$i];
-		echo '</th>';
+		echo '</td>';
 		echo'</tr>';
+
+
 	}
 	?>
 	</table>

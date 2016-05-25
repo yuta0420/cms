@@ -73,7 +73,7 @@
             <a href="#" class="list-group-item list-group-item-info">Question BBSについて</a>
             <a href="#" class="list-group-item list-group-item-info">使い方</a>
             <a href="#" class="list-group-item list-group-item-info">活用シーン</a>
-            <a href="#" class="list-group-item list-group-item-info">ログイン</a> 
+            <a href="login.php" class="list-group-item list-group-item-info">ログイン</a> 
           </div>
       </div> 
     

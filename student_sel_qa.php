@@ -86,7 +86,11 @@ if(isset($_GET['id_que']) && !empty($_GET['id_que'])){
 		<br />
 		<?php echo '<input type="hidden" name="number1" value="'.$i.'">'; ?>
 		<input type="submit" class="btn btn-success btn-s" value="答えを確認する" onclick="return confirm('答え合わせをしますか？');"　>
+		<br />
+		<br />
+		<a href="student_main.php">戻る</a>
 		</form>
+
 	</div>
 
 <?php } ?>
@@ -110,24 +114,28 @@ if(isset($_POST['number1']) && !empty($_POST['number1'])){
 	for($i=0; $i<$_POST['number1']; $i++)
 	{
 		echo'<tr>';
+		echo'<td>';
+		if($_POST['st_answer'.($i+1)]==$_POST['answer'.$i])echo '<i class="fa fa-circle-o" aria-hidden="true"></i>';
+		//問題番号が一致していたら正解
+		else echo '<i class="fa fa-check" aria-hidden="true"></i>';
+		echo'</td>';
+		
 		echo'<td>問題';
 		echo$i+1; 
 		echo '&nbsp';
 		echo'</td>';
-		echo'<th>'.$_POST['question'.$i].'</th>';
-		echo'<th>あなたの答え：';
+		echo'<td>'.$_POST['question'.$i].'</td>';
+		echo'<td>あなたの答え：';
 		echo $_POST['st_answer'.($i+1)];
-		echo '</th>';
-		echo '<th>';
+		echo '</td>';
+		echo '<td>';
 		echo '&nbsp';
-		if($_POST['st_answer'.($i+1)]==$_POST['answer'.$i])echo '正解';
-		//問題番号が一致していたら正解
-		else echo '不正解';
+		
 		echo '&nbsp';
 		echo '答え：';
 		echo $_POST['answer'.$i];
 		echo '&nbsp';
-		echo '</th>';
+		echo '</td>';
 		echo'</tr>';
 	}
 	?>

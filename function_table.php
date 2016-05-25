@@ -33,7 +33,7 @@
         // セルの内容入力
         cell1.innerHTML = button;
         cell2.innerHTML = "問題" + (cnt+number); 
-        cell3.innerHTML = '<input name="question' + (cnt+number-1) + '" type="text" class="form-control" style="width:100px">'+'&emsp;'+'&emsp;';
+        cell3.innerHTML = '<input name="question' + (cnt+number-1) + '" type="text" class="form-control" style="width:100px">'/*+'&emsp;'+'&emsp;'*/;
         cell4.innerHTML = '答え';
         cell5.innerHTML ='<input name="answer' + (cnt+number-1) + '" type="text" class="form-control" style="width:100px">';
 
@@ -76,7 +76,7 @@
 
         var space = '</table><br />';
 
-        var answer = '<h2>答えの番号を選択してください</h2><select name="ans' + (cnt+number-1) + '" class="form-control">'+'<option value="1">1</option>' + '<option value="2">2</option>' + '<option value="3">3</option>' + '<option value="4">4</option>' + '</select>';
+        var answer = '<h2>答えの番号を選択してください</h2><select name="ans' + (cnt+number-1) + '">'+'<option value="1">1</option>' + '<option value="2">2</option>' + '<option value="3">3</option>' + '<option value="4">4</option>' + '</select><br /><br />';
 
 
 

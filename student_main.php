@@ -31,14 +31,14 @@
 
 	//問題リスト呼び出し用に問題メインテーブルからレコード取得
 	if(isset($_POST['subject_search'])){
-    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0  AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0  AND `open_flag`=1 AND `subject_id`='.$_POST['subject_search'].' ORDER BY `time_made` DESC';
   }
   else if(isset($_POST['subject_search'])&&$_POST['subject_search']==0){
-    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+    $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id WHERE `delete_flag`=0  AND `open_flag`=1 ORDER BY `time_made` DESC';
   }
   else{
     $sql = 'SELECT `id_que`, `title_que`, `title_que_sub`, `open_flag`, `delete_flag`, `num_que`, `sel_type`, `subject_id`, `id_teach`, `time_made`, `time_edit`, teachers.nick_name FROM `main` JOIN `teachers` ON main.id_teach=teachers.teacher_id
-    WHERE `delete_flag`=0  ORDER BY `time_made` DESC';
+    WHERE `delete_flag`=0  AND `open_flag`=1 ORDER BY `time_made` DESC';
   }
 
 	//SQL文の実行
@@ -162,7 +162,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#page-top"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
+              <a class="navbar-brand" href="index.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question bbs</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -240,7 +240,12 @@
                           //問題タイトルの出力
                         	echo '<h2><a href="student_main.php?id_que='.$question_each['id_que'].'">'.$title_que.'</a></h2>';
 
-                          echo '<h5>作成者：'.$question_each['nick_name'].'</5>';
+                          echo '<h5>作成者：</5>';
+                          echo '<form name="view" method="post" action="view.php">';
+                          echo '<input type="hidden" name="id_teach" value="'.$question_each['id_teach'].'">';
+                          echo '<input type="submit" class="btn btn-default btn-xs" value="'.$question_each['nick_name'].'">';
+                          echo '</form>';
+
                           
                           // リストに最終更新日時を出力
                           if($question_each['time_edit']>$question_each['time_made'])echo '<h5>'.$question_each['time_edit'].'</h5>';
