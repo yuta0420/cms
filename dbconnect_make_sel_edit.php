@@ -11,6 +11,7 @@
  <?php
 
   // echo '<br /><br /><br />';
+  // echo '取得データ：<br />';
   // var_dump($_POST);
 
 
@@ -27,7 +28,9 @@
           $number_true=$number_que_edit;//取得した問題数を格納
 
           // echo '更新前の問題数：'.$_POST['num_que_edit'];
+          // echo '<br />';
           // echo '問題数：'.$number_que_edit;
+          // echo '<br />';
 
       //②問題メインテーブルのUPDATE処理 
       $sql='UPDATE `main` SET `title_que`="'.$_POST['question_title'].'",`title_que_sub`="'.$_POST['question_title_sub'].'",`num_que`='.$number_que_edit.', `subject_id`="'.$_POST['subject_id'].'", `time_edit`=now() WHERE `id_que`='.$_POST['id_que_edit'];
@@ -49,11 +52,15 @@
         //③-2 削除されて送信されていない場合は、DELETE処理を実行
         $sql='DELETE FROM `selection` WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
       }
-        $number_true--;//問題が存在しない場合
+        if($_POST['num_que_edit']<=$number_que_edit){
+          $number_true--;//問題が存在しない場合
+        }
       }
 
         // echo '<br /><br /><br />';
+        // echo '取得したSQL：<br />';
         // echo $sql;
+        // echo '<br />';
         
         //SQL文の実行
          $stmt=$dbh->prepare($sql);
@@ -68,7 +75,7 @@
           if(isset($_POST['question'.$i])){
                $sql = sprintf('INSERT INTO `selection`(`id_que`,`question`, `choose1`, `choose2`, `choose3`, `choose4`, `answer`,  `time_made`)VALUES (\'%d\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%d\',now())',$_POST['id_que_edit'],$_POST['question'.$i],$_POST['choose'.$i.'_1'],$_POST['choose'.$i.'_2'],$_POST['choose'.$i.'_3'],$_POST['choose'.$i.'_4'],$_POST['ans'.$i]);
 
-               //var_dump($sql);
+               // var_dump($sql);
 
                //SQL文の実行
              $stmt=$dbh->prepare($sql);
@@ -81,11 +88,10 @@
         // echo '最終取得問題数：'.$number_true;
         // 問題数を更新
       $sql=sprintf('UPDATE `main` SET `num_que`="%d" WHERE `id_que`=%d',$number_true,$_POST['id_que_edit']);
-    //     echo '問題数：';
-    // echo $number_true;
 
-    //   var_dump($sql);
+      // var_dump($sql);
       //SQL文の実行
+      
            $stmt=$dbh->prepare($sql);
            $stmt->execute();
    }  

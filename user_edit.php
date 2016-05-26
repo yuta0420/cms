@@ -285,7 +285,7 @@
             <label class="col-sm-4 control-label">自己紹介文</label>
             <div class="col-sm-8">
             <?php if(isset($member['self'])):?>
-              <textarea name="self" cols="50" rows="5" class="form-control" placeholder="あいさつ、経歴、得意分野、アピールなど"><?php echo nl2br(h($member['self']));?></textarea>
+              <textarea name="self" cols="50" rows="5" class="form-control" placeholder="あいさつ、経歴、得意分野、アピールなど"><?php echo h($member['self']);?></textarea>
             <?php else: ?>
               <textarea name="self" cols="50" rows="5" class="form-control" placeholder="あいさつ、経歴、得意分野、アピールなど"></textarea>
             <?php endif; ?>

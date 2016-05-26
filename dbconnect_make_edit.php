@@ -42,7 +42,9 @@
         //③-2 削除されて送信されていない場合は、DELETE処理を実行
         $sql='DELETE FROM `question` WHERE `id_sub`='.$_POST['id_sub_edit'.$i];
       }
-        $number_true--;//問題が存在しない場合
+        if($_POST['num_que_edit']<=$number_que_edit){
+          $number_true--;//問題が存在しない場合
+        }
       }
 
         // var_dump($sql);
