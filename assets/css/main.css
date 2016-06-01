@@ -33,4 +33,130 @@ body {
     font-size:12px;
 }
 
+/* Titles */
+h1, h2, h4, h5, h6 {
+    font-family: "Raleway";
+    font-weight: 300;
+    color: #333;
+}
+
+h3 {
+    font-family: "Raleway";
+    font-weight: 300;
+    color: #333;
+}
+
+
+
+
+/* WRAP SECTIONS */
+
+/* hello */
+#hello {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#hello h1 {
+  font-size: 90px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #000080;
+}
+
+#hello h2 {
+  color: #c0c0c0;
+  font-weight: 400;
+}
+
+/* Green */
+#green {
+  /*background-image: url("../img/background.png");*/
+  background-color: #f5f5f5;
+  padding-top: 50px;
+  margin-bottom: 50px;
+}
+
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+    right: 153px;
+    bottom: 0px;
+}
+
+.absolute2{
+  position: absolute;
+    right: 153px;
+    bottom: 120px;
+}
+
+#green h3 {
+  color: black;
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+
+#green p {
+  color: black;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+/* Skills */
+#skills {
+  background-color: #f5f5f5;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 50px;
+}
+
+#skills h3 {
+  color: black;
+  font-weight: 400;
+  margin-bottom: 35px;
+}
+
+#skills p {
+  color: white;
+  font-weight: 400;
+}
+
+/* Social Links */
+#social {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  /*background-color: #f5f5f5;*/
+}
+
+#social i {
+  font-size: 50px;
+  color: #f5f5f5;
+}
+
+#social .col-md-3:hover {
+  background-color: #f5f5f5;
+  /*background-color: #ffffff;*/
+}
+
+#social .col-md-3 {
+  padding:30px;
+}
+
+/* Footer */
+#f {
+  padding-top: 20px;
+  background-color: #f5f5f5;
+}
+
+#f p {
+  color: white;
+  text-align: right;
+  font-weight: 400;
+}
+
+
 

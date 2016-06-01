@@ -107,7 +107,7 @@
         mysqli_real_escape_string($db,$member['teacher_id'])
         );
 
-      echo $sql;
+
       mysqli_query($db, $sql) or die (mysqli_error($db));
 
       header('Location: thanks.php');

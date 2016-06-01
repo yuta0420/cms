@@ -10,7 +10,7 @@
   //フォームからデータが送信されたとき
   if(!empty($_POST)){
 
-    var_dump($_FILES);
+    // var_dump($_FILES);
 
     $name = trim(mb_convert_kana($_POST['nick_name'],"s",'UTF-8'));
     if($name==''){
@@ -35,7 +35,7 @@
     }
 
 
-        //重複アカウントチェック
+    //重複アカウントチェック
     if(empty($error)){
       $sql = sprintf('SELECT COUNT(*) AS cnt FROM teachers WHERE email="%s"',
         mysqli_real_escape_string($db,$_POST['email']));
