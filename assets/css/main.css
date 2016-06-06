@@ -40,6 +40,10 @@ h1, h2, h4, h5, h6 {
     color: #333;
 }
 
+.item h1{
+  color: #ffffff;
+}
+
 h3 {
     font-family: "Raleway";
     font-weight: 300;

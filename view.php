@@ -80,7 +80,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="index.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question BBS</span></a>
+              <a class="navbar-brand" href="top/index.php"><span class="strong-title"><i class="fa fa-pencil-square"></i> Question BBS</span></a>
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

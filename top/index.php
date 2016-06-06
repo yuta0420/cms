@@ -1,35 +1,35 @@
 <?php
 
-  //DB接続関数の呼び出し
-  require('dbconnect.php');
+  // //DB接続関数の呼び出し
+  // require('dbconnect.php');
 
-  //セッションを使うページに必ず入れる
-  session_start();
+  // //セッションを使うページに必ず入れる
+  // session_start();
 
-  //セッションにidが存在し、かつセッションのtimeと3600秒足した値が
-  //現在時刻より小さいときにログインをしていると判断する
-  if(isset($_SESSION['id'])&&$_SESSION['time']+3600>time()){
-    //セッションに保存している期間更新
-    $_SESSION['time']=time();
+  // //セッションにidが存在し、かつセッションのtimeと3600秒足した値が
+  // //現在時刻より小さいときにログインをしていると判断する
+  // if(isset($_SESSION['id'])&&$_SESSION['time']+3600>time()){
+  //   //セッションに保存している期間更新
+  //   $_SESSION['time']=time();
 
-    //ログインしているユーザーのデータをDBから取得
-    $sql=sprintf('SELECT * FROM `teachers` WHERE `teacher_id`=%d',
-      $_SESSION['id']
-      );
+  //   //ログインしているユーザーのデータをDBから取得
+  //   $sql=sprintf('SELECT * FROM `teachers` WHERE `teacher_id`=%d',
+  //     $_SESSION['id']
+  //     );
 
-    $stmt=$dbh->prepare($sql);
-    $stmt->execute();
+  //   $stmt=$dbh->prepare($sql);
+  //   $stmt->execute();
 
-    $record=$stmt->fetch(PDO::FETCH_ASSOC);
-    $teacher=$record;
+  //   $record=$stmt->fetch(PDO::FETCH_ASSOC);
+  //   $teacher=$record;
 
-    // header('Location: teacher_main.php');
+  //   // header('Location: teacher_main.php');
 
 
-  }
+  // }
 
-  //データベースから切断
-  $dbh = null;
+  // データベースから切断
+  // $dbh = null;
 ?>
 
 
@@ -42,18 +42,18 @@
     <title>3 Carousel Layout (BS 3)</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="top/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="top/css/styles.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 
     <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/bootstrap.css">
-  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="assets/css/form.css">
-  <link rel="stylesheet" href="assets/css/timeline.css">
-  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="../assets/css/form.css">
+  <link rel="stylesheet" href="../assets/css/timeline.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
 
 
   </head>
@@ -111,7 +111,7 @@
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="top/images/top.jpg" style="width:100%" class="img-responsive">
+          <img src="images/top.jpg" style="width:100%" class="img-responsive">
           <div class="container">
             <div class="carousel-caption">
               <h1>ようこそ！Question BBSへ</h1>
@@ -122,22 +122,22 @@
           </div>
         </div>
         <div class="item">
-          <img src="top/images/top.jpg" class="img-responsive">
+          <img src="images/top.jpg" class="img-responsive">
           <div class="container">
             <div class="carousel-caption">
               <h1>簡単に問題を配信することができる</h1>
               <p>問題作成は問題と答えを入力するだけです。<br>「アプリで問題を配信するのはむずかしそう・・・」という方もQuestion BBSなら簡単です！</p>
-              <p><a class="btn btn-large btn-primary" href="join/index.php">会員登録して問題を作る</a></p>
+              <p><a class="btn btn-large btn-primary" href="../join/index.php">会員登録して問題を作る</a></p>
             </div>
           </div>
         </div>
         <div class="item">
-          <img src="top/images/globe.png" class="img-responsive">
+          <img src="images/globe.png" class="img-responsive">
           <div class="container">
             <div class="carousel-caption">
               <h1>会員登録なしで問題がとける</h1>
               <p>ユーザーが作成した問題は会員登録なしで問題をとくことができます</p>
-              <p><a class="btn btn-large btn-primary" href="student_main.php">問題を解いてみる</a></p>
+              <p><a class="btn btn-large btn-primary" href="../student_main.php">問題を解いてみる</a></p>
             </div>
           </div>
         </div>
@@ -163,22 +163,22 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-md-4 text-center">
-          <img class="img-circle" src="top/images/security.png">
+          <img class="img-circle" src="images/security.png">
           <h2>STEP1. 会員登録</h2>
           <p>まずは問題を作成する前に、<br>会員登録を行います。<br></p>
-          <p><a class="btn btn-default" href="join/index.php">新規登録はこちら »</a></p>
+          <p><a class="btn btn-default" href="../join/index.php">新規登録はこちら »</a></p>
         </div>
         <div class="col-md-4 text-center">
-          <img class="img-circle" src="top/images/computer.png">
+          <img class="img-circle" src="images/computer.png">
           <h2>STEP2. 問題作成</h2>
           <p>登録が完了したら、<br>専用ページの「新規作成」ボタンを押して作成を始めます。</p>
-          <p><a class="btn btn-default" href="login.php">ログインする »</a></p>
+          <p><a class="btn btn-default" href="../login.php">ログインする »</a></p>
         </div>
         <div class="col-md-4 text-center">
-          <img class="img-circle" src="top/images/globe.png">
+          <img class="img-circle" src="images/globe.png">
           <h2>STEP3. 問題公開</h2>
           <p>作成リストから公開したい問題を選んで、<br>「公開チェック」を押して保存して、問題を公開します。</p>
-          <p><a class="btn btn-default" href="login.php">ログインする »</a></p>
+          <p><a class="btn btn-default" href="../login.php">ログインする »</a></p>
         </div>
       </div><!-- /.row -->
 
