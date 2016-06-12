@@ -39,7 +39,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>3 Carousel Layout (BS 3)</title>
+    <title>Question BBS</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -80,14 +80,14 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                   <li>
-                      <a class="btn btn-default btn-block btn-xs" href="student_main.php" role="button">問題に答える(会員登録不要)</a>
+                      <a class="btn btn-default btn-block btn-xs" href="../student_main.php" role="button">問題に答える(会員登録不要)</a>
                   </li>
                   <li>
-                      <a class="btn btn-default btn-block btn-xs" href="login.php" role="button">ログイン</a>
+                      <a class="btn btn-default btn-block btn-xs" href="../login.php" role="button">ログイン</a>
                       
                   </li>
                   <li class="page-scroll">
-                      <a class="btn btn-default btn-block btn-xs" href="join/index.php">新規登録はこちら</a>
+                      <a class="btn btn-default btn-block btn-xs" href="../join/index.php">新規登録はこちら</a>
                   </li>
               </ul>
           </div>
@@ -206,7 +206,7 @@
       <div class="featurette">
         <img class="featurette-image img-circle pull-right" src="http://placehold.it/512">
         <h2 class="featurette-heading">仕事・アルバイトのアピールとして</h2>
-        <p class="lead">問題を解くときに作成した人のプロフィールを見ることができます。生徒を募集する際のアピールとして、自作問題を公開できます。Facebookやブログのリンクを掲載できるので、それぞれのサイトを同時に活用して、各SNSから仕事の依頼募集をすることもできます。</p>
+        <p class="lead">問題を解くときに作成した人のプロフィールを見ることができます。生徒を募集する際のアピールとして、自作問題を公開できます。Facebookやブログのリンクを掲載できるので、各SNSを通じて家庭教師の募集をすることもできます。</p>
       </div>
 
       <hr class="featurette-divider">

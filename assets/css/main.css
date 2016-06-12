@@ -163,4 +163,5 @@ h3 {
 }
 
 
-
+.navbar-blue .dropdown-menu li a {color:#2A4888;}
+.navbar-blue .dropdown-menu li > a {padding-left:30px;}

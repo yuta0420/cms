@@ -84,7 +84,6 @@
       $subjects[]=$rec;
     }
 
-  
 
   //データベースから切断
 	$dbh = null;
@@ -111,6 +110,16 @@
 
   <!-- テーブル行数編集用関数（JAVA script） -->
   <?php require('function_table.php');?>
+
+  <!-- ポップアップ表示用 -->
+  <script>
+    $(document).ready(function(){
+        //Handles menu drop down
+        $('.dropdown-menu').find('form').click(function (e) {
+            e.stopPropagation();
+        });
+    });
+  </script>
 
 </head>
 <body>
@@ -172,7 +181,17 @@
 
               <!-- ③自分が作った問題の生徒側画面のデモページを表示 -->
 
-              <a href="teacher_demo.php">生徒用画面デモはこちら</a><br /><br />
+
+              <div class="dropdown">
+                <a href="teacher_demo.php">生徒用画面デモ</a>
+                [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                <div class="dropdown-menu">
+                  <h5>自分が公開設定した問題の生徒画面を確認できます。</h5>
+                </div>
+              </div>
+
+
+              <br /><br />
                   
               <!-- ④新規作成（初期問題数・タイプ選択）ボタンの作成 -->
               <?php
@@ -181,21 +200,28 @@
 
 
               <!-- 科目検索用 -->
-              <form method='post'>
+              <!-- <form method='post'>
                 <select class="form-control" name="subject_search" style="width:150px">
-                  <option value="0">全件表示</option>
+                  <option value="0"　selected>全件表示</option> -->
                   <?php
-                      foreach($subjects as $subject){
+                      // foreach($subjects as $subject){
                     ?>
 
-                    <option value="<?php echo $subject['subject_id'];?>"><?php echo $subject['subject_name'];?></option>
+                    <!-- <option value="<?php //echo $subject['subject_id'];?>"><?php //echo $subject['subject_name'];?></option> -->
 
-                  <?php  }  ?>
+                  <?php  //}  ?>
                   
-                  </select>
+                  <!-- </select>
 
-                  <input type="submit" class="btn btn-success btn-xs" value="科目検索">
-              </form>
+                  
+                   <div class="dropdown">
+                    <input type="submit" class="btn btn-success btn-xs" value="科目検索">
+                        [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                      <div class="dropdown-menu">
+                          <h5>科目</h5>
+                      </div>
+                    </div>
+              </form> -->
 
               <!-- アイコン付き（問題リスト） -->
                <div class="timeline-centered box_srcollbar">       
@@ -302,9 +328,9 @@
     </div>
   </div>
  
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!-- <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="assets/js/bootstrap.js"></script>
   <script src="assets/js/form.js"></script>
 </body>

@@ -22,14 +22,27 @@
                   <?php  }  ?>
                   
                   </select>
-                   <p><a href='#' onClick="window.open('subject_add.php', 'child', 'width=500,height=400');">新しい科目を登録する</a></p><br />
+                 <br />
 
                   
-                  問題の追加
+                  
+                  <div class="dropdown">
+                    問題の追加
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>追加ボタンを押すと、問題数を一つ増やすことができます。</h5>
+                    </div>
+                  </div>
                   <input type="button" value="追加" class="btn btn-default btn-s" onclick="insertRow_sen('make_table',<?php echo $_POST["number_que"];?>)" /><br />
                   <br />
 
-                  小問題のタイトルと答えを入力してください
+                  <div class="dropdown">
+                    問題と答えを入力してください
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>問題と答えを入力して下さい。<br>※保存した後でも変更できます。</h5>
+                    </div>
+                  </div>
                   <br />
 
                 <table id="make_table">
@@ -81,7 +94,13 @@
                       <input name="sel_type" type="hidden" value="0">
                        
                       <br />
-                      <input type="submit" class="btn btn-success btn-xs" onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。');"value="問題を作成する" >
+                        <div class="dropdown">
+                          <input type="submit" class="btn btn-success btn-xs" onclick="return confirm('問題を保存しますか？\n※未完成の場合、左のリストから編集できます\n※公開する場合は左のリストをクリックして「公開承認」を押して保存して下さい。');"value="問題を作成する" >
+                          [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                          <div class="dropdown-menu">
+                            <h5>問題と答えを入力して下さい。<br>※保存した後でも変更できます。</h5>
+                          </div>
+                        </div>
                       </form>
                     </div>
                 

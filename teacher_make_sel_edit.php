@@ -67,12 +67,24 @@
                 </select>
                 <p><a href='#' onClick="window.open('subject_add.php', 'child', 'width=500,height=400');">新しい科目を登録する</a></p><br />
 
-                   問題の追加
+                  <div class="dropdown">
+                    問題の追加
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>追加ボタンを押すと、問題数を一つ増やすことができます。</h5>
+                    </div>
+                  </div>
                   <input type="button" value="追加" class="btn btn-default btn-xs" onclick="insertRow_sel('make_sel_table_edit', <?php echo $main['num_que'];?>)" /><br />
 
                   <br />
 
-                  小問題と答えを入力してください
+                  <div class="dropdown">
+                    問題と答えを入力してください
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>問題と答えを入力して下さい。<br>※保存した後でも変更できます。</h5>
+                    </div>
+                  </div>
                   <br />
 
                   <table id='make_sel_table_edit'>
@@ -188,19 +200,37 @@
                   <?php echo '<input name="id_que_edit" type="hidden" value="'.$main['id_que'].'">'; ?>
                   <?php echo '<input name="num_que_edit" type="hidden" value="'.$main['num_que'].'">'; ?>
                   
-                  <!-- 公開フラグの設定 -->
+                   <!-- 公開フラグの設定 -->
                   <?php if($main['open_flag']==1){?>
+                  <div class="dropdown">
                     <input type="checkbox" name="open_flag" value="1" checked="checked">公開承認チェック
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>公開承認チェックにチェックをすると問題が公開されます。</h5>
+                    </div>
+                  </div>
                   <?php }else{ ?>
-                    <input type="checkbox" name="open_flag"  value="1" >公開承認チェック
+                  <div class="dropdown">
+                    <input type="checkbox" name="open_flag" value="1" >公開承認チェック
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>公開承認チェックにチェックをすると問題が公開されます。</h5>
+                    </div>
+                  </div>
                   <?php } ?>
 
                   <br />
                   <?php echo '<input name="sel_type" type="hidden" value="1">'; ?>
-                  
-                 <input type="submit" class="btn btn-success btn-s"
+
+                  <div class="dropdown">
+                    <input type="submit" class="btn btn-success btn-s"
                  onclick="return confirm('※注意※\n未完成でも、「公開承認チェック」を押していると\n問題が公開されてしまいます。'); "
                  value="問題を更新する" >
+                    [<a href="#" class="dropdown-toggle" data-toggle="dropdown">?</a>]
+                    <div class="dropdown-menu">
+                      <h5>問題と答えを入力して下さい。<br>※保存した後でも変更できます。</h5>
+                    </div>
+                  </div>
                 </form>
               </div>
                 
